@@ -937,6 +937,7 @@ textarea{resize:vertical;min-height:80px}
       <div class="nav-item" data-view="disability"><span class="nav-icon">♿</span><span>Disability Claims</span></div>
       <div class="nav-item" data-view="ssa"><span class="nav-icon">🏦</span><span>Social Security</span></div>
       <div class="nav-item" data-view="bankruptcy"><span class="nav-icon">💰</span><span>Bankruptcy & Credit</span></div>
+      <div class="nav-item" data-view="creditscore"><span class="nav-icon">📈</span><span>Credit Score</span></div>
       <div class="nav-item" data-view="consumer"><span class="nav-icon">🚗</span><span>Consumer Rights</span></div>
       <div class="nav-item" data-view="immigrant"><span class="nav-icon">🇺🇸</span><span>Immigrant &amp; Community</span></div>
       <div class="nav-item" data-view="medical"><span class="nav-icon">🏥</span><span>Medical Records</span></div>
@@ -1091,6 +1092,7 @@ const viewTitles = {
   disability: 'Disability Claims — Lincoln Financial + ERISA',
   ssa: 'Social Security Disability — Adults & Children',
   bankruptcy: 'Bankruptcy & Unfair Credit Practices',
+  creditscore: 'Credit Score — Check, Improve & Dispute',
   consumer: 'Consumer Rights — Car Buyer Rights & Bad Company Index',
   immigrant: 'Immigrant Rights & Community Resources',
   medical: 'Medical Records — MyChart Access',
@@ -1142,6 +1144,7 @@ function render() {
     case 'disability': c.innerHTML = renderDisability(); break;
     case 'ssa': c.innerHTML = renderSSA(); break;
     case 'bankruptcy': c.innerHTML = renderBankruptcy(); break;
+    case 'creditscore': c.innerHTML = renderCreditScore(); break;
     case 'consumer': c.innerHTML = renderConsumer(); break;
     case 'immigrant': c.innerHTML = renderImmigrant(); break;
     case 'medical': c.innerHTML = renderMedical(); break;
@@ -7359,6 +7362,446 @@ function genBoycottPoster(companyIndex) {
 function fileComplaint(companyName) {
   toast('Opening IL AG complaint form...');
   window.open('https://www.illinoisattorneygeneral.gov/consumers/filecomplaint/', '_blank');
+}
+
+// ── CREDIT SCORE VIEW ──
+function renderCreditScore() {
+  return `
+    <div class="alert alert-emerald">
+      <span>📈</span>
+      <div><strong>Credit Score — Check, Improve &amp; Dispute.</strong> Your credit score affects everything — loans, housing, insurance, even job applications. This section helps you understand your score, find free ways to check it, learn what improves it, generate dispute letters, and track your progress.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔍 Check Your Score — Free (No Credit Card)</div>
+      <div class="card-sub">These services give you free credit scores and monitoring. None require a credit card for the free tier.</div>
+      <div class="grid-3">
+        <a href="https://www.creditkarma.com" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🟢</div>
+          <div><div class="bold small">Credit Karma</div><div class="muted" style="font-size:11px">TransUnion + Equifax scores, free</div></div>
+        </a>
+        <a href="https://www.experian.com/consumer-products/check-credit-score.html" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🔵</div>
+          <div><div class="bold small">Experian FreeScore</div><div class="muted" style="font-size:11px">FICO Score 8, free</div></div>
+        </a>
+        <a href="https://www.creditsesame.com" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🟡</div>
+          <div><div class="bold small">Credit Sesame</div><div class="muted" style="font-size:11px">TransUnion score, free</div></div>
+        </a>
+        <a href="https://www.nerdwallet.com/article/credit-score" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🟣</div>
+          <div><div class="bold small">NerdWallet</div><div class="muted" style="font-size:11px">TransUnion VantageScore, free</div></div>
+        </a>
+        <a href="https://www.wallethub.com" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🦊</div>
+          <div><div class="bold small">WalletHub</div><div class="muted" style="font-size:11px">Daily TransUnion score, free</div></div>
+        </a>
+        <a href="https://www.annualcreditreport.com" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">🆓</div>
+          <div><div class="bold small">Annual Credit Report</div><div class="muted" style="font-size:11px">Official free reports (all 3 bureaus)</div></div>
+        </a>
+      </div>
+      <div class="alert alert-info mt-16"><span>ℹ️</span><div class="small"><strong>FICO vs VantageScore:</strong> FICO (300-850) is used by most lenders. VantageScore (300-850) is used by free monitoring sites. They may differ by 20-50 points. For loan applications, your FICO score matters most.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Credit Score Factors — What Affects Your Score</div>
+      <div class="card-sub">Understanding the 5 factors that determine your FICO score</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:6px">Factor</th><th style="text-align:left;padding:6px">Weight</th><th style="text-align:left;padding:6px">How to Improve</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px"><strong>1. Payment History</strong></td><td style="padding:6px;color:var(--emerald)">35%</td><td style="padding:6px">Pay every bill on time — even one late payment can drop your score 50-100 points</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px"><strong>2. Credit Utilization</strong></td><td style="padding:6px;color:var(--emerald)">30%</td><td style="padding:6px">Keep balances below 30% of credit limit (below 10% is ideal). Pay down balances.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px"><strong>3. Length of History</strong></td><td style="padding:6px;color:var(--warn)">15%</td><td style="padding:6px">Keep old accounts open — longer history = higher score. Don't close oldest cards.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px"><strong>4. Credit Mix</strong></td><td style="padding:6px;color:var(--text-dim)">10%</td><td style="padding:6px">Having different types of credit (cards + installment loans) helps slightly</td></tr>
+        <tr><td style="padding:6px"><strong>5. New Credit</strong></td><td style="padding:6px;color:var(--text-dim)">10%</td><td style="padding:6px">Limit hard inquiries — each application drops score 5-10 points for 12 months</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🧮 Credit Score Simulator</div>
+      <div class="card-sub">See how different actions would affect your score</div>
+      <div class="field">
+        <label>Current Score</label>
+        <input type="number" class="chat-input" id="sim-current" placeholder="e.g., 620" oninput="runSim()">
+      </div>
+      <div class="field">
+        <label>Simulate Action</label>
+        <select id="sim-action" onchange="runSim()">
+          <option value="">— Select an action —</option>
+          <option value="late">Miss a payment (30 days late)</option>
+          <option value="paydown">Pay off 50% of credit card balances</option>
+          <option value="payoff">Pay off ALL credit card balances</option>
+          <option value="close">Close oldest credit card account</option>
+          <option value="apply">Apply for new credit card (hard inquiry)</option>
+          <option value="limit">Get credit limit increase (no inquiry)</option>
+          <option value="collection">Pay off a collection account</option>
+          <option value="dispute">Successfully dispute a negative item</option>
+          <option value="authorized">Become authorized user on good account</option>
+          <option value="maxout">Max out all credit cards</option>
+        </select>
+      </div>
+      <div id="sim-result" class="mt-16"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">✅ Credit Score Improvement Action Plan</div>
+      <div class="card-sub">Step-by-step plan to improve your score — ranked by impact</div>
+      <ol class="small" style="padding-left:20px;line-height:2.4">
+        <li><strong>Get your free credit reports</strong> — Go to <a href="https://www.annualcreditreport.com" target="_blank" style="color:var(--accent)">annualcreditreport.com</a> and pull all 3 reports. Review every account for errors.</li>
+        <li><strong>Dispute ALL errors</strong> — Use the FCRA dispute letter generator below. Send to ALL 3 bureaus via certified mail. They must investigate within 30 days.</li>
+        <li><strong>Pay down credit card balances</strong> — Target: below 30% utilization (below 10% is best). This is the FASTEST way to improve your score — can jump 30-60 points in 30 days.</li>
+        <li><strong>Set up autopay</strong> — Never miss a payment again. Even one late payment can drop your score 50-100 points.</li>
+        <li><strong>Don't close old accounts</strong> — Closing your oldest card shortens your credit history and lowers your score. Keep it open with a small recurring charge.</li>
+        <li><strong>Request credit limit increases</strong> — Higher limits = lower utilization = higher score. Ask your current cards for increases (soft inquiry only).</li>
+        <li><strong>Become an authorized user</strong> — Ask a family member with good credit to add you as an authorized user. Their good history appears on your report.</li>
+        <li><strong>Pay off collections</strong> — Negotiate "pay-for-delete" (see Bankruptcy & Credit tab). Paid collections hurt less than unpaid.</li>
+        <li><strong>Limit new applications</strong> — Each hard inquiry drops your score 5-10 points. Space out applications by 6 months minimum.</li>
+        <li><strong>Use goodwill letters</strong> — If you have a single late payment on an otherwise good account, ask the creditor for a goodwill deletion (see Document Wizard).</li>
+        <li><strong>Consider a secured card</strong> — If rebuilding credit, a secured card (deposit = credit limit) builds history with no risk.</li>
+        <li><strong>Monitor your progress</strong> — Sign up for Credit Karma or Experian FreeScore. Check weekly. Watch for unexpected changes.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📝 Generate Credit Dispute Documents</div>
+      <div class="card-sub">Pre-filled letters to dispute errors, request goodwill, and negotiate pay-for-delete</div>
+      <div class="grid-3">
+        <div class="doc-gen-item" onclick="genCreditDoc('dispute')">
+          <div class="doc-gen-icon">📋</div>
+          <div><div class="bold small">FCRA Dispute Letter</div><div class="muted" style="font-size:11px">Dispute errors on credit report</div></div>
+        </div>
+        <div class="doc-gen-item" onclick="genCreditDoc('goodwill')">
+          <div class="doc-gen-icon">🤝</div>
+          <div><div class="bold small">Goodwill Deletion Letter</div><div class="muted" style="font-size:11px">Ask creditor to remove late payment</div></div>
+        </div>
+        <div class="doc-gen-item" onclick="genCreditDoc('payfordelete')">
+          <div class="doc-gen-icon">💰</div>
+          <div><div class="bold small">Pay-for-Delete Offer</div><div class="muted" style="font-size:11px">Settle collection + remove from report</div></div>
+        </div>
+        <div class="doc-gen-item" onclick="genCreditDoc('validation')">
+          <div class="doc-gen-icon">✉️</div>
+          <div><div class="bold small">Debt Validation Request</div><div class="muted" style="font-size:11px">Force collector to prove debt</div></div>
+        </div>
+        <div class="doc-gen-item" onclick="genCreditDoc('method')">
+          <div class="doc-gen-icon">🔢</div>
+          <div><div class="bold small">Method of Verification</div><div class="muted" style="font-size:11px">Ask bureau how they verified</div></div>
+        </div>
+        <div class="doc-gen-item" onclick="genCreditDoc('609')">
+          <div class="doc-gen-icon">📄</div>
+          <div><div class="bold small">Section 609 Request</div><div class="muted" style="font-size:11px">Request all info bureau has on you</div></div>
+        </div>
+      </div>
+      <div id="credit-doc-output" class="hidden mt-16"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">❄️ Credit Freeze &amp; Fraud Alert</div>
+      <div class="card-sub">Free at all 3 bureaus — strongest protection against identity theft</div>
+      <div class="alert alert-warn mb-8"><span>⚠️</span><div class="small"><strong>Credit Freeze vs Fraud Alert:</strong> A freeze completely blocks new accounts from being opened (free, lift anytime). A fraud alert just requires lenders to verify identity (1 year, free). Get BOTH for maximum protection.</div></div>
+      <div class="grid-3">
+        <a href="https://www.equifax.com/personal/credit-report-services/credit-freeze/" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">❄️</div>
+          <div><div class="bold small">Freeze at Equifax</div><div class="muted" style="font-size:11px">Free, instant</div></div>
+        </a>
+        <a href="https://www.experian.com/freeze/center.html" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">❄️</div>
+          <div><div class="bold small">Freeze at Experian</div><div class="muted" style="font-size:11px">Free, instant</div></div>
+        </a>
+        <a href="https://www.transunion.com/credit-freeze" target="_blank" class="email-btn-item" style="text-decoration:none;color:inherit">
+          <div class="email-btn-icon">❄️</div>
+          <div><div class="bold small">Freeze at TransUnion</div><div class="muted" style="font-size:11px">Free, instant</div></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Score Ranges — Where Are You?</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:6px">Range</th><th style="text-align:left;padding:6px">Rating</th><th style="text-align:left;padding:6px">What It Means</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px;color:var(--danger)">300-579</td><td style="padding:6px">Poor</td><td style="padding:6px">May be denied credit. If approved, very high rates.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px;color:var(--warn)">580-669</td><td style="padding:6px">Fair</td><td style="padding:6px">Subprime borrowers. Higher rates, some approvals.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px;color:var(--text)">670-739</td><td style="padding:6px">Good</td><td style="padding:6px">Near or above average. Most lenders approve.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px;color:var(--emerald)">740-799</td><td style="padding:6px">Very Good</td><td style="padding:6px">Above average. Better rates and terms.</td></tr>
+        <tr><td style="padding:6px;color:var(--emerald)">800-850</td><td style="padding:6px">Exceptional</td><td style="padding:6px">Top tier. Best rates. Easy approvals.</td></tr>
+      </table>
+    </div>
+  `;
+}
+
+function runSim() {
+  const current = parseInt(document.getElementById('sim-current')?.value);
+  const action = document.getElementById('sim-action')?.value;
+  const result = document.getElementById('sim-result');
+  if (!current || !action) { result.innerHTML = ''; return; }
+
+  const changes = {
+    late:      { points: -80,  desc: 'A single 30-day late payment can drop your score 50-100 points. Payment history is 35% of your score.' },
+    paydown:   { points: 30,   desc: 'Paying down 50% of credit card balances reduces utilization significantly. Can improve 20-40 points.' },
+    payoff:    { points: 60,   desc: 'Paying off ALL credit card balances brings utilization to 0% (though 1-10% is actually optimal). Biggest single improvement.' },
+    close:     { points: -20,  desc: 'Closing your oldest account shortens credit history and reduces available credit (increases utilization).' },
+    apply:     { points: -8,   desc: 'Each hard inquiry drops your score 5-10 points. Recovers in 12 months. Multiple inquiries in 14-45 days count as one for rate shopping.' },
+    limit:     { points: 15,   desc: 'A credit limit increase (soft inquiry) reduces your utilization ratio without spending more. No downside.' },
+    collection:{ points: 25,   desc: 'Paying off a collection may not remove it from your report, but newer scoring models penalize paid collections less.' },
+    dispute:   { points: 40,   desc: 'Successfully removing a negative item (late payment, collection, charge-off) can improve your score 30-60 points.' },
+    authorized:{ points: 35,   desc: 'Being added as an authorized user to a card with perfect history and low utilization adds their good history to your report.' },
+    maxout:    { points: -70,  desc: 'Maxing out all credit cards (100% utilization) is one of the worst things for your score. Can drop 60-80 points.' }
+  };
+
+  const change = changes[action];
+  if (!change) return;
+  const newScore = Math.max(300, Math.min(850, current + change.points));
+  const arrow = change.points > 0 ? '📈' : change.points < 0 ? '📉' : '➡️';
+  const color = change.points > 0 ? 'var(--emerald)' : 'var(--danger)';
+
+  result.innerHTML = `
+    <div class="alert" style="background:var(--bg-elev);border:1px solid var(--border)">
+      <span>${arrow}</span>
+      <div>
+        <div style="font-size:28px;font-weight:900;color:${color}">${current} → ${newScore}</div>
+        <div style="font-size:18px;font-weight:700;color:${color}">${change.points > 0 ? '+' : ''}${change.points} points</div>
+        <div class="small muted mt-8">${change.desc}</div>
+        <div class="small mt-8"><strong>⚠️ This is an estimate.</strong> Actual impact varies based on your full credit profile, number of accounts, and scoring model used. Use this as a guide, not a guarantee.</div>
+      </div>
+    </div>
+  `;
+}
+
+function genCreditDoc(type) {
+  const p = state.profile;
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const userName = p.name || '[Your Name]';
+  const userEmail = p.email || '[Your Email]';
+  let title = '', body = '';
+
+  if (type === 'dispute') {
+    title = 'FCRA Credit Report Dispute Letter';
+    body = `${today}
+
+[Credit Bureau: Equifax / Experian / TransUnion]
+[Address]
+
+VIA CERTIFIED MAIL — RETURN RECEIPT REQUESTED
+
+Re: Dispute of Inaccurate Information on Credit Report
+
+Name: ${userName}
+Address: [Your Address]
+SSN: [Last 4: XXXX]
+DOB: [DOB]
+
+Dear Credit Bureau,
+
+Under the Fair Credit Reporting Act (FCRA), 15 U.S.C. § 1681i, I dispute the
+following items on my credit report. I believe they are inaccurate, incomplete,
+or unverifiable.
+
+DISPUTED ITEMS:
+1. [Creditor Name] — Account #[Number] — [Reason: not mine / wrong amount / paid / never late]
+2. [Creditor Name] — Account #[Number] — [Reason]
+
+I request that you:
+1. Investigate within 30 days (15 U.S.C. § 1681i)
+2. Forward all info to the furnisher
+3. Delete all inaccurate, incomplete, or unverifiable items
+4. Send me an updated report
+
+Enclosed: ID, proof of address, credit report with items highlighted
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Send to ALL 3 bureaus. Must investigate within 30 days.
+If they verify without actually investigating, you can sue under FCRA.`;
+  }
+
+  else if (type === 'goodwill') {
+    title = 'Goodwill Deletion Letter';
+    body = `${today}
+
+[Creditor Name]
+[Address]
+
+Re: Goodwill Deletion Request — Account #[Number]
+
+Dear [Creditor],
+
+I'm writing to request a goodwill deletion of a late payment reported on
+[date]. I've been a customer since [year] and have otherwise maintained
+perfect payment history.
+
+The late payment was caused by [brief explanation: medical emergency, job
+loss, family crisis]. Since then, I've [brought account current / maintained
+on-time payments for X months].
+
+I respectfully request removal of this negative mark as a gesture of goodwill.
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Goodwill letters work best for ONE-TIME late payments on
+otherwise clean accounts. Be polite and brief. Follow up if no response in 30 days.`;
+  }
+
+  else if (type === 'payfordelete') {
+    title = 'Pay-for-Delete Agreement Proposal';
+    body = `${today}
+
+[Collection Agency]
+[Address]
+
+Re: Pay-for-Delete Proposal — Account #[Number] — Balance $[Amount]
+
+Dear [Agency],
+
+I propose to pay $[Settlement amount — 30-50% of balance] to settle this
+account IN EXCHANGE for:
+1. Deletion of ALL credit reporting from ALL 3 bureaus
+2. No sale or transfer of remaining balance
+3. Written confirmation on company letterhead
+
+This is a settlement offer — I do NOT acknowledge owing this debt.
+If you agree, respond in writing. Upon receipt, I will pay within 10 days.
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Get it IN WRITING before paying. Never pay based on a
+verbal promise. If they won't put it in writing, don't pay.`;
+  }
+
+  else if (type === 'validation') {
+    title = 'Debt Validation Request (FDCPA § 1692g)';
+    body = `${today}
+
+[Collection Agency]
+[Address]
+
+VIA CERTIFIED MAIL
+
+Re: Debt Validation Request — Account #[Number]
+
+Dear [Agency],
+
+I dispute this debt and request validation under the FDCPA, 15 U.S.C. § 1692g.
+Provide within 30 days:
+1. Amount owed
+2. Original creditor name
+3. Copy of original contract
+4. Proof you're licensed to collect in my state
+5. Date of last payment (for SOL)
+
+Until validated, cease all collection and credit reporting.
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Send within 30 days of first contact. They must stop
+collecting until they validate. If they can't, they must remove it.`;
+  }
+
+  else if (type === 'method') {
+    title = 'Method of Verification Request';
+    body = `${today}
+
+[Credit Bureau]
+[Address]
+
+Re: Method of Verification Request
+
+Name: ${userName}
+SSN: [Last 4: XXXX]
+
+Dear [Bureau],
+
+Under FCRA 15 U.S.C. § 1681i(a)(6), I request the method of verification
+you used to verify the following disputed item:
+
+[Creditor Name] — Account #[Number]
+
+I need to know:
+1. How you verified (electronic, phone, mail)
+2. Who you contacted at the furnisher
+3. What documentation was provided
+4. Date and time of verification
+
+Please provide within 15 days.
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Send AFTER a dispute comes back "verified." If they
+can't provide method details, it suggests they didn't actually investigate.
+Use this to support a second dispute or FCRA lawsuit.`;
+  }
+
+  else if (type === '609') {
+    title = 'Section 609 Information Request';
+    body = `${today}
+
+[Credit Bureau]
+[Address]
+
+Re: Section 609 Request — All Information on File
+
+Name: ${userName}
+SSN: [Last 4: XXXX]
+DOB: [DOB]
+
+Dear [Bureau],
+
+Under FCRA 15 U.S.C. § 1681g, I request a complete copy of ALL information
+in my credit file, including:
+1. All items reported (positive and negative)
+2. Source of each item (who reported it)
+3. Date each item was reported
+4. All inquiries (hard and soft)
+5. Any public records
+6. All addresses on file
+7. All employment records on file
+
+This is NOT a dispute — it is a request for disclosure under § 1681g.
+
+Sincerely,
+${userName}
+${userEmail}
+
+---
+ATTORNEY GUIDANCE: Section 609 requests force the bureau to show you
+EVERYTHING they have. You may find items not shown on your regular report.
+You're entitled to this free once per year per bureau.`;
+  }
+
+  const output = document.getElementById('credit-doc-output');
+  output.classList.remove('hidden');
+  output.innerHTML = `
+    <div class="flex-between mb-8">
+      <h3 style="color:var(--accent)">${title}</h3>
+      <div class="flex">
+        <button class="btn btn-sm" onclick="window.print()">🖨 Print</button>
+        <button class="btn btn-sm btn-ghost" onclick="copyCreditDoc()">📋 Copy</button>
+        <button class="btn btn-sm btn-ghost" onclick="document.getElementById('credit-doc-output').classList.add('hidden')">✕ Close</button>
+      </div>
+    </div>
+    <div class="output-doc">
+      <pre style="white-space:pre-wrap;font-family:Georgia,serif;font-size:13px;line-height:1.7">${esc(body)}</pre>
+    </div>
+  `;
+  output.scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyCreditDoc() {
+  const text = document.querySelector('#credit-doc-output .output-doc')?.innerText || '';
+  navigator.clipboard.writeText(text).then(() => toast('Document copied')).catch(() => toast('Copy failed', 'warn'));
 }
 
 // ── BANKRUPTCY & UNFAIR CREDIT PRACTICES VIEW ──
