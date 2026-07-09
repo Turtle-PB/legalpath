@@ -9867,6 +9867,9 @@ function copyWizardDoc() {
 function renderTools() {
   const notes = localStorage.getItem('legalpath_notes') || '';
   const deadlines = JSON.parse(localStorage.getItem('legalpath_deadlines') || '[]');
+  const witnessLog = JSON.parse(localStorage.getItem('legalpath_witnesses') || '[]');
+  const caseCosts = JSON.parse(localStorage.getItem('legalpath_costs') || '[]');
+  let totalCosts = caseCosts.reduce((s, c) => s + parseFloat(c.amount || 0), 0);
 
   return `
     <div class="alert alert-info">
@@ -9895,6 +9898,90 @@ function renderTools() {
       </div>
       <div id="calc-result" class="mt-16"></div>
       <div class="alert alert-info mt-16"><span>ℹ️</span><div class="small"><strong>How it works:</strong> "Costs off the top" means costs are deducted BEFORE the percentage is calculated — this is BETTER for you. "Costs split proportionally" means costs are split based on the fee percentage. Negotiate for costs off the top.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💰 Case Cost Tracker</div>
+      <div class="card-sub">Track all case-related expenses — filing fees, postage, copies, travel</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Expense Description</label>
+          <input type="text" class="chat-input" id="cost-desc" placeholder="e.g., Certified mail to EEOC">
+        </div>
+        <div class="field">
+          <label>Amount ($)</label>
+          <input type="number" class="chat-input" id="cost-amount" placeholder="e.g., 8.50" step="0.01">
+        </div>
+      </div>
+      <button class="btn" onclick="addCost()">➕ Add Expense</button>
+      <div class="mt-16">
+        ${caseCosts.length === 0 ? '<div class="muted small" style="padding:12px;text-align:center">No expenses tracked yet.</div>' : 
+          caseCosts.map((c, i) => `<div class="import-doc-item"><div class="import-doc-icon">💲</div><div class="import-doc-info"><div class="bold small">${esc(c.desc)}</div><div class="muted" style="font-size:11px">${c.date} • $${parseFloat(c.amount).toFixed(2)}</div></div><button class="btn btn-sm btn-ghost" onclick="deleteCost(${i})">🗑</button></div>`).join('')
+        }
+        ${caseCosts.length > 0 ? `<div class="bold mt-8" style="color:var(--accent)">Total: $${totalCosts.toFixed(2)}</div>` : ''}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Witness Log</div>
+      <div class="card-sub">Track people who witnessed events relevant to your case</div>
+      <div class="field">
+        <label>Witness Name</label>
+        <input type="text" class="chat-input" id="wit-name" placeholder="e.g., Jane Smith">
+      </div>
+      <div class="field">
+        <label>Contact Info</label>
+        <input type="text" class="chat-input" id="wit-contact" placeholder="Phone or email">
+      </div>
+      <div class="field">
+        <label>What did they witness?</label>
+        <input type="text" class="chat-input" id="wit-event" placeholder="e.g., Saw me sign documents during crisis">
+      </div>
+      <div class="field">
+        <label>Date of Event</label>
+        <input type="date" class="chat-input" id="wit-date">
+      </div>
+      <button class="btn" onclick="addWitness()">➕ Add Witness</button>
+      <div class="mt-16">
+        ${witnessLog.length === 0 ? '<div class="muted small" style="padding:12px;text-align:center">No witnesses logged yet.</div>' : 
+          witnessLog.map((w, i) => `<div class="import-doc-item"><div class="import-doc-icon">👤</div><div class="import-doc-info"><div class="bold small">${esc(w.name)}</div><div class="muted" style="font-size:11px">${esc(w.contact)} • ${esc(w.event)} • ${w.date}</div></div><button class="btn btn-sm btn-ghost" onclick="deleteWitness(${i})">🗑</button></div>`).join('')
+        }
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚖️ Settlement Comparison Tool</div>
+      <div class="card-sub">Compare multiple settlement offers side by side</div>
+      <div class="grid-3">
+        <div class="field">
+          <label>Offer 1: Total ($)</label>
+          <input type="number" class="chat-input" id="set1-total" placeholder="100000" oninput="compareSettlements()">
+        </div>
+        <div class="field">
+          <label>Offer 1: Fee (%)</label>
+          <input type="number" class="chat-input" id="set1-fee" value="33" oninput="compareSettlements()">
+        </div>
+        <div class="field">
+          <label>Offer 1: Costs ($)</label>
+          <input type="number" class="chat-input" id="set1-costs" placeholder="5000" oninput="compareSettlements()">
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label>Offer 2: Total ($)</label>
+          <input type="number" class="chat-input" id="set2-total" placeholder="120000" oninput="compareSettlements()">
+        </div>
+        <div class="field">
+          <label>Offer 2: Fee (%)</label>
+          <input type="number" class="chat-input" id="set2-fee" value="40" oninput="compareSettlements()">
+        </div>
+        <div class="field">
+          <label>Offer 2: Costs ($)</label>
+          <input type="number" class="chat-input" id="set2-costs" placeholder="8000" oninput="compareSettlements()">
+        </div>
+      </div>
+      <div id="compare-result" class="mt-16"></div>
+      <div class="alert alert-warn mt-8"><span>💡</span><div class="small"><strong>Pro tip:</strong> A higher offer with a higher fee % can net you LESS money. Always calculate your NET recovery, not the headline number.</div></div>
     </div>
 
     <div class="card">
@@ -9980,6 +10067,21 @@ Suggested uses:
       </div>
       <button class="btn" onclick="genPassword()">🔐 Generate Password</button>
       <div id="pw-result" class="mt-16"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📄 Document OCR Tips — Extract Text From Images</div>
+      <div class="card-sub">How to get text from photos of documents (court filings, letters, medical records)</div>
+      <div class="alert alert-info"><span>📸</span><div class="small">
+        <strong>Free OCR tools (no cost):</strong><br>
+        1. <strong>Google Drive</strong> — Upload image → right-click → "Open with Google Docs" → text extracted automatically<br>
+        2. <strong>Google Keep</strong> — Take photo in Keep app → "Grab image text" → text extracted<br>
+        3. <strong>Microsoft OneNote</strong> — Paste image → right-click → "Copy Text from Picture"<br>
+        4. <strong>Apple Photos</strong> (iPhone) — Open photo → "Live Text" → copy text<br>
+        5. <strong>Google Lens</strong> — Point camera at document → "Text" → copy<br>
+        <br>
+        After extracting text: copy it → paste into Release Review → analyze for legal clauses.
+      </div></div>
     </div>
   `;
 }
@@ -10131,7 +10233,129 @@ function genPassword() {
   `;
 }
 
+function addCost() {
+  const desc = document.getElementById('cost-desc')?.value.trim();
+  const amount = document.getElementById('cost-amount')?.value;
+  if (!desc || !amount) { toast('Description and amount required', 'warn'); return; }
+  const costs = JSON.parse(localStorage.getItem('legalpath_costs') || '[]');
+  costs.push({ desc, amount, date: new Date().toLocaleDateString() });
+  localStorage.setItem('legalpath_costs', JSON.stringify(costs));
+  navigate('tools');
+  toast('Expense added');
+}
+
+function deleteCost(i) {
+  const costs = JSON.parse(localStorage.getItem('legalpath_costs') || '[]');
+  costs.splice(i, 1);
+  localStorage.setItem('legalpath_costs', JSON.stringify(costs));
+  navigate('tools');
+  toast('Expense removed');
+}
+
+function addWitness() {
+  const name = document.getElementById('wit-name')?.value.trim();
+  const contact = document.getElementById('wit-contact')?.value.trim();
+  const event = document.getElementById('wit-event')?.value.trim();
+  const date = document.getElementById('wit-date')?.value;
+  if (!name) { toast('Witness name required', 'warn'); return; }
+  const witnesses = JSON.parse(localStorage.getItem('legalpath_witnesses') || '[]');
+  witnesses.push({ name, contact, event, date });
+  localStorage.setItem('legalpath_witnesses', JSON.stringify(witnesses));
+  navigate('tools');
+  toast('Witness added');
+}
+
+function deleteWitness(i) {
+  const witnesses = JSON.parse(localStorage.getItem('legalpath_witnesses') || '[]');
+  witnesses.splice(i, 1);
+  localStorage.setItem('legalpath_witnesses', JSON.stringify(witnesses));
+  navigate('tools');
+  toast('Witness removed');
+}
+
+function compareSettlements() {
+  const s1 = parseFloat(document.getElementById('set1-total')?.value) || 0;
+  const f1 = parseFloat(document.getElementById('set1-fee')?.value) || 0;
+  const c1 = parseFloat(document.getElementById('set1-costs')?.value) || 0;
+  const s2 = parseFloat(document.getElementById('set2-total')?.value) || 0;
+  const f2 = parseFloat(document.getElementById('set2-fee')?.value) || 0;
+  const c2 = parseFloat(document.getElementById('set2-costs')?.value) || 0;
+  if (!s1 && !s2) { document.getElementById('compare-result').innerHTML = ''; return; }
+  const net1 = s1 - (s1 * f1 / 100) - c1;
+  const net2 = s2 - (s2 * f2 / 100) - c2;
+  const better = net1 > net2 ? 1 : 2;
+  const fmt = n => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  document.getElementById('compare-result').innerHTML = `
+    <div class="grid-2">
+      <div class="alert ${better === 1 ? 'alert-emerald' : 'alert-warn'}" style="margin:4px">
+        <span>${better === 1 ? '🏆' : '⏳'}</span>
+        <div class="small"><strong>Offer 1</strong><br>Gross: ${fmt(s1)}<br>Fee (${f1}%): -${fmt(s1*f1/100)}<br>Costs: -${fmt(c1)}<br><strong style="color:${better===1?'var(--emerald)':'var(--warn)'}">Net: ${fmt(Math.max(0,net1))}</strong></div>
+      </div>
+      <div class="alert ${better === 2 ? 'alert-emerald' : 'alert-warn'}" style="margin:4px">
+        <span>${better === 2 ? '🏆' : '⏳'}</span>
+        <div class="small"><strong>Offer 2</strong><br>Gross: ${fmt(s2)}<br>Fee (${f2}%): -${fmt(s2*f2/100)}<br>Costs: -${fmt(c2)}<br><strong style="color:${better===2?'var(--emerald)':'var(--warn)'}">Net: ${fmt(Math.max(0,net2))}</strong></div>
+      </div>
+    </div>
+    <div class="alert alert-info mt-8"><span>💡</span><div class="small">Offer ${better} nets you ${fmt(Math.abs(net1 - net2))} more. ${better === 1 ? 'Lower total with lower fee wins!' : 'Higher total justifies higher fee.'}</div></div>
+  `;
+}
+
 // ── ADMIN PANEL ──
+
+function addCost() {
+  const desc = document.getElementById('cost-desc')?.value.trim();
+  const amount = document.getElementById('cost-amount')?.value;
+  if (!desc || !amount) { toast('Description and amount required', 'warn'); return; }
+  const costs = JSON.parse(localStorage.getItem('legalpath_costs') || '[]');
+  costs.push({ desc, amount, date: new Date().toLocaleDateString() });
+  localStorage.setItem('legalpath_costs', JSON.stringify(costs));
+  navigate('tools');
+  toast('Expense added');
+}
+
+function deleteCost(i) {
+  const costs = JSON.parse(localStorage.getItem('legalpath_costs') || '[]');
+  costs.splice(i, 1);
+  localStorage.setItem('legalpath_costs', JSON.stringify(costs));
+  navigate('tools');
+  toast('Expense removed');
+}
+
+function addWitness() {
+  const name = document.getElementById('wit-name')?.value.trim();
+  const contact = document.getElementById('wit-contact')?.value.trim();
+  const event = document.getElementById('wit-event')?.value.trim();
+  const date = document.getElementById('wit-date')?.value;
+  if (!name) { toast('Witness name required', 'warn'); return; }
+  const witnesses = JSON.parse(localStorage.getItem('legalpath_witnesses') || '[]');
+  witnesses.push({ name, contact, event, date });
+  localStorage.setItem('legalpath_witnesses', JSON.stringify(witnesses));
+  navigate('tools');
+  toast('Witness added');
+}
+
+function deleteWitness(i) {
+  const witnesses = JSON.parse(localStorage.getItem('legalpath_witnesses') || '[]');
+  witnesses.splice(i, 1);
+  localStorage.setItem('legalpath_witnesses', JSON.stringify(witnesses));
+  navigate('tools');
+  toast('Witness removed');
+}
+
+function compareSettlements() {
+  const s1 = parseFloat(document.getElementById('set1-total')?.value) || 0;
+  const f1 = parseFloat(document.getElementById('set1-fee')?.value) || 0;
+  const c1 = parseFloat(document.getElementById('set1-costs')?.value) || 0;
+  const s2 = parseFloat(document.getElementById('set2-total')?.value) || 0;
+  const f2 = parseFloat(document.getElementById('set2-fee')?.value) || 0;
+  const c2 = parseFloat(document.getElementById('set2-costs')?.value) || 0;
+  if (!s1 && !s2) { document.getElementById('compare-result').innerHTML = ''; return; }
+  const net1 = s1 - (s1 * f1 / 100) - c1;
+  const net2 = s2 - (s2 * f2 / 100) - c2;
+  const better = net1 > net2 ? 1 : 2;
+  const fmt = n => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  document.getElementById('compare-result').innerHTML = '<div class="grid-2"><div class="alert ' + (better === 1 ? 'alert-emerald' : 'alert-warn') + '" style="margin:4px"><span>' + (better === 1 ? '🏆' : '⏳') + '</span><div class="small"><strong>Offer 1</strong><br>Gross: ' + fmt(s1) + '<br>Fee (' + f1 + '%): -' + fmt(s1*f1/100) + '<br>Costs: -' + fmt(c1) + '<br><strong style="color:' + (better===1?'var(--emerald)':'var(--warn)') + '">Net: ' + fmt(Math.max(0,net1)) + '</strong></div></div><div class="alert ' + (better === 2 ? 'alert-emerald' : 'alert-warn') + '" style="margin:4px"><span>' + (better === 2 ? '🏆' : '⏳') + '</span><div class="small"><strong>Offer 2</strong><br>Gross: ' + fmt(s2) + '<br>Fee (' + f2 + '%): -' + fmt(s2*f2/100) + '<br>Costs: -' + fmt(c2) + '<br><strong style="color:' + (better===2?'var(--emerald)':'var(--warn)') + '">Net: ' + fmt(Math.max(0,net2)) + '</strong></div></div></div><div class="alert alert-info mt-8"><span>💡</span><div class="small">Offer ' + better + ' nets you ' + fmt(Math.abs(net1 - net2)) + ' more.</div></div>';
+}
 const DEFAULT_DONATIONS = [
   { id: 'paypal',       name: 'PayPal',            icon: '💸', url: 'https://paypal.me/adcockp',    desc: 'paypal.me/adcockp',     active: true },
   { id: 'cashapp',      name: 'Cash App',          icon: '💵', url: 'https://cash.app/$yourusername',                  desc: '$yourusername',              active: true },
@@ -12981,3 +13205,5 @@ window.addEventListener('DOMContentLoaded', initGate);
 </script>
 </body>
 </html>
+/usr/bin/bash: line 7: C:/Users/emupa/AppData/Local/hermes/cache/terminal/hermes-cwd-747e2a105c30.txt: No such file or directory
+/usr/bin/bash: line 7: C:/Users/emupa/AppData/Local/hermes/cache/terminal/hermes-cwd-747e2a105c30.txt: No such file or directory
