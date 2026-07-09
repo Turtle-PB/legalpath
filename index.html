@@ -1035,7 +1035,7 @@ const PATHWAY_STEPS = [
   {
     id: 'preservation-letter',
     title: 'Send Preservation Notice (Via Attorney)',
-    desc: 'Your attorney sends a formal letter instructing DP World to preserve all evidence — source code, commit history, emails, HR records. This prevents spoliation (evidence destruction), which is catastrophic for them in court.',
+    desc: 'Your attorney sends a formal letter instructing your employer to preserve all evidence — source code, commit history, emails, HR records. This prevents spoliation (evidence destruction), which is catastrophic for them in court.',
     actions: ['Attorney drafts letter', 'Sent via certified mail', 'Document delivery']
   },
   {
@@ -2275,7 +2275,7 @@ function renderGallery() {
       <div class="card-sub">Spread awareness about corporate accountability</div>
       <div class="flex" style="flex-wrap:wrap;gap:8px">
         ${galleryImages.map((img, i) => `
-          <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Justice vs DP World / Syncreon — ' + img.title + ' #LegalPath #CorporateAccountability')}&url=${encodeURIComponent(img.url)}" target="_blank" class="share-btn" title="Share on X">𝕏</a>
+          <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Justice vs Corporate Power — ' + img.title + ' #LegalPath #CorporateAccountability')}&url=${encodeURIComponent(img.url)}" target="_blank" class="share-btn" title="Share on X">𝕏</a>
         `).join('')}
         ${galleryImages.map(img => `
           <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(img.url)}" target="_blank" class="share-btn" title="Share on Facebook">📘</a>
@@ -3082,7 +3082,7 @@ function renderFileClaim() {
         <li>Go to the <a href="https://publicportal.eeoc.gov/Portal/Login.aspx" target="_blank" style="color:var(--accent)">EEOC Public Portal</a></li>
         <li>Submit an online inquiry — describe what happened, when, and why you believe it was discrimination</li>
         <li>Schedule an interview (phone, video, or in-person at one of 53 EEOC offices)</li>
-        <li>Provide: your info, employer info (DP World / Syncreon, address, phone), number of employees, description of discriminatory acts, dates, basis (race, disability, age, retaliation)</li>
+        <li>Provide: your info, employer info (name, address, phone), number of employees, description of discriminatory acts, dates, basis (race, disability, age, retaliation)</li>
         <li>EEOC investigates and issues a "Right to Sue" letter — OR you can request one after 180 days</li>
         <li>With Right to Sue letter, you have <strong>90 days</strong> to file a federal lawsuit</li>
       </ol>
@@ -3095,7 +3095,7 @@ function renderFileClaim() {
         <li>Attorney files a Complaint in U.S. District Court (federal) or state court</li>
         <li>Filing fee: ~$402 (attorney handles this)</li>
         <li>If pro se (not recommended for large claims): use <a href="https://www.cfc.uscourts.gov/pro-se-information" target="_blank" style="color:var(--accent)">Court of Federal Claims pro se forms</a></li>
-        <li>Court issues summons → served on DP World / Syncreon's registered agent</li>
+        <li>Court issues summons → served on employer's registered agent</li>
         <li>Defendant has 21 days to respond</li>
         <li>Discovery phase: both sides exchange evidence (your source code, commit history, emails)</li>
         <li>Settlement negotiations or trial</li>
@@ -3561,7 +3561,7 @@ function updateWizard() {
         '2. Fill out Pro Se 1 (Complaint for Civil Case) — or have attorney draft',
         '3. Complete JS-44 Civil Cover Sheet',
         '4. File both at U.S. District Court clerk\'s office ($402 fee)',
-        '5. Serve complaint on DP World / Syncreon\'s registered agent',
+        '5. Serve complaint on employer\'s registered agent',
         '6. Defendant has 21 days to respond → discovery begins'
       ];
     }
@@ -3646,7 +3646,7 @@ function genDoc(type) {
         <strong>Address:</strong> [Your Address]<br>
         <strong>Email:</strong> ${esc(p.email) || '[Your Email]'}<br>
         <strong>Phone:</strong> [Your Phone]</p>
-        <p><strong>Respondent (Employer):</strong> ${esc(p.employer) || 'DP World / Syncreon'}<br>
+        <p><strong>Respondent (Employer):</strong> ${esc(p.employer) || '[Your Employer]'}<br>
         <strong>Address:</strong> 2851 High Meadow Circle, Auburn Hills, MI 48326<br>
         <strong>Phone:</strong> [Employer Phone]<br>
         <strong>Number of Employees:</strong> 50,000+ (DP World global)</p>
@@ -3667,11 +3667,11 @@ function genDoc(type) {
         <h1>Demand for Return of Intellectual Property</h1>
         <div class="meta">Generated ${new Date().toLocaleDateString()} — SEND VIA CERTIFIED MAIL</div>
         <p>To: Legal Department / General Counsel<br>
-        ${esc(p.employer) || 'DP World / Syncreon'}<br>
+        ${esc(p.employer) || '[Your Employer]'}<br>
         2851 High Meadow Circle, Auburn Hills, MI 48326</p>
         <p>Re: Demand for Return of Authorship Rights and Source Code</p>
         <p>Dear Sir or Madam,</p>
-        <p>I am writing to formally demand the return of, and recognition of my authorship rights to, the source code and intellectual property I developed during my employment with ${esc(p.employer) || 'DP World / Syncreon'} from ${p.employmentStart ? fmtDate(p.employmentStart) : '[Start]'} to ${p.employmentEnd ? fmtDate(p.employmentEnd) : '[End]'}.</p>
+        <p>I am writing to formally demand the return of, and recognition of my authorship rights to, the source code and intellectual property I developed during my employment with ${esc(p.employer) || '[Your Employer]'} from ${p.employmentStart ? fmtDate(p.employmentStart) : '[Start]'} to ${p.employmentEnd ? fmtDate(p.employmentEnd) : '[End]'}.</p>
         <p><strong>Work Product at Issue:</strong></p>
         <p>${esc(p.description) || '[Describe the source code, systems, and IP you created]'}</p>
         <p><strong>Estimated Value:</strong> ${esc(p.claimValue) || '[Value]'}</p>
@@ -3694,7 +3694,7 @@ function genDoc(type) {
       <div class="output-doc">
         <h1>Notice of Evidence Preservation</h1>
         <div class="meta">Generated ${new Date().toLocaleDateString()} — SEND VIA CERTIFIED MAIL</div>
-        <p>To: Legal Department / IT Department<br>${esc(p.employer) || 'DP World / Syncreon'}</p>
+        <p>To: Legal Department / IT Department<br>${esc(p.employer) || '[Your Employer]'}</p>
         <p>Re: Notice to Preserve Evidence — ${esc(p.name) || '[Name]'}</p>
         <p>You are hereby notified to preserve all evidence, documents, and data related to the employment and work product of ${esc(p.name) || '[Name]'}, employed as ${esc(p.role) || '[role]'} from ${p.employmentStart ? fmtDate(p.employmentStart) : '[Start]'} to ${p.employmentEnd ? fmtDate(p.employmentEnd) : '[End]'}.</p>
         <p><strong>This notice covers, but is not limited to:</strong></p>
@@ -3717,7 +3717,7 @@ function genDoc(type) {
       <div class="output-doc">
         <h1>Request for Work Product and Employment Records</h1>
         <div class="meta">Generated ${new Date().toLocaleDateString()}</div>
-        <p>To: Human Resources / Legal Department<br>${esc(p.employer) || 'DP World / Syncreon'}</p>
+        <p>To: Human Resources / Legal Department<br>${esc(p.employer) || '[Your Employer]'}</p>
         <p>Dear Sir or Madam,</p>
         <p>I am writing to formally request copies of the following records from my employment as ${esc(p.role) || '[role]'} from ${p.employmentStart ? fmtDate(p.employmentStart) : '[Start]'} to ${p.employmentEnd ? fmtDate(p.employmentEnd) : '[End]'}.</p>
         <p><strong>Records Requested:</strong></p>
@@ -3738,7 +3738,7 @@ function genDoc(type) {
         <h1>Notice of Challenge to Agreement — Mental Capacity</h1>
         <div class="meta">Generated ${new Date().toLocaleDateString()} — FOR ATTORNEY REVIEW</div>
         <p>To: [Attorney Name]<br>Re: Challenge to NDA / Employment Agreement</p>
-        <p>I am providing this statement to support a challenge to the enforceability of a Non-Disclosure Agreement (NDA) and/or employment agreement that I signed during my employment with ${esc(p.employer) || 'DP World / Syncreon'}.</p>
+        <p>I am providing this statement to support a challenge to the enforceability of a Non-Disclosure Agreement (NDA) and/or employment agreement that I signed during my employment with ${esc(p.employer) || '[Your Employer]'}.</p>
         <p><strong>Basis of Challenge: Mental Capacity at Time of Signing</strong></p>
         <p>I signed the agreement during a documented period of mental health crisis. At the time of signing:</p>
         <ul>
@@ -3764,7 +3764,7 @@ function genDoc(type) {
         <p>Name: ${esc(p.name) || '[Name]'}<br>
         State: ${esc(p.state) || '[State]'}<br>
         Email: ${esc(p.email) || '[Email]'}<br>
-        Former Employer: ${esc(p.employer) || 'DP World / Syncreon'}<br>
+        Former Employer: ${esc(p.employer) || '[Your Employer]'}<br>
         Role: ${esc(p.role) || '[Role]'}<br>
         Employment: ${p.employmentStart ? fmtDate(p.employmentStart) : '[Start]'} — ${p.employmentEnd ? fmtDate(p.employmentEnd) : '[End]'}</p>
         <h2>Nature of Claim</h2>
@@ -4998,7 +4998,7 @@ function exportAnalysis(format) {
     html += `<table><tr><th>Name</th><td>${esc(p.name) || '[Not provided]'}</td></tr>`;
     html += `<tr><th>State</th><td>${esc(p.state) || '[Not provided]'}</td></tr>`;
     html += `<tr><th>Email</th><td>${esc(p.email) || '[Not provided]'}</td></tr>`;
-    html += `<tr><th>Employer</th><td>${esc(p.employer) || 'DP World / Syncreon'}</td></tr>`;
+    html += `<tr><th>Employer</th><td>${esc(p.employer) || '[Your Employer]'}</td></tr>`;
     html += `<tr><th>Role</th><td>${esc(p.role) || '[Not provided]'}</td></tr>`;
     html += `<tr><th>Employment</th><td>${p.employmentStart || '[Start]'} to ${p.employmentEnd || '[End]'}</td></tr>`;
     html += `<tr><th>Claim Value</th><td>${esc(p.claimValue) || '[Not specified]'}</td></tr></table>`;
@@ -8030,7 +8030,7 @@ function renderWizard() {
       <div class="wizard-grid" id="wizard-recipient">
         <div class="wizard-choice" onclick="selectWizard('recipient','hr')" data-wkey="recipient" data-wval="hr">
           <div class="wizard-choice-icon">🏢</div>
-          <div class="wizard-choice-label">DP World / Syncreon HR</div>
+          <div class="wizard-choice-label">HR Department</div>
         </div>
         <div class="wizard-choice" onclick="selectWizard('recipient','lincoln')" data-wkey="recipient" data-wval="lincoln">
           <div class="wizard-choice-icon">♿</div>
@@ -9690,7 +9690,7 @@ function genPassword() {
 
 // ── ADMIN PANEL ──
 const DEFAULT_DONATIONS = [
-  { id: 'paypal',       name: 'PayPal',            icon: '💸', url: 'https://www.paypal.com/paypalme/yourusername',    desc: 'paypal.me/yourusername',     active: true },
+  { id: 'paypal',       name: 'PayPal',            icon: '💸', url: 'https://www.paypal.com/paypalme/pauldevco',    desc: 'paypal.me/pauldevco',     active: true },
   { id: 'cashapp',      name: 'Cash App',          icon: '💵', url: 'https://cash.app/$yourusername',                  desc: '$yourusername',              active: true },
   { id: 'venmo',        name: 'Venmo',             icon: '🏦', url: 'https://venmo.com/u/yourusername',                desc: '@yourusername',              active: true },
   { id: 'gofundme',     name: 'GoFundMe',          icon: '🤝', url: 'https://www.gofundme.com/f/legalpath-support', desc: 'gofundme.com/legalpath',  active: true },
@@ -11382,7 +11382,7 @@ function renderAdvocate() {
 const LEGAL_TERMS = [
   { term: 'Pro Se', plain: 'Representing yourself in court without a lawyer. Latin for "on one\'s own behalf."', example: 'You file your own complaint and appear in court without an attorney.' },
   { term: 'Plaintiff', plain: 'The person who files the lawsuit (you, if you\'re suing).' },
-  { term: 'Defendant', plain: 'The person or company being sued (DP World / Syncreon).' },
+  { term: 'Defendant', plain: 'The person or company being sued (your employer).' },
   { term: 'Petitioner', plain: 'The person who files a petition (used in some courts and agencies instead of plaintiff).' },
   { term: 'Respondent', plain: 'The person or company responding to a petition.' },
   { term: 'Capacity', plain: 'Your mental ability to understand a contract you\'re signing. If you lacked capacity, the contract may be voidable.', example: 'You signed an NDA during a mental health crisis — you may have lacked capacity.' },
