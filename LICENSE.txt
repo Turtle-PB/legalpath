@@ -1,0 +1,190 @@
+LEGAL NOTICE — RIGHTS AND LICENSE
+LegalPath Case Builder System & Analysis Engine
+© 2025 Paul Adcock (paul.dev.co@outlook.com) — Patent Pending
+All Rights Reserved.
+
+═══════════════════════════════════════════════════════════════
+SECTION 1 — COPYRIGHT OWNERSHIP
+═══════════════════════════════════════════════════════════════
+
+The software, source code, user interface, documentation, analysis engine,
+document templates, and all associated materials (collectively, "LegalPath")
+are the exclusive intellectual property of Paul Adcock.
+
+Copyright is established and protected under:
+- 17 U.S.C. § 102 (Copyright Act — protection from moment of creation)
+- 17 U.S.C. § 201 (Initial ownership — author is owner)
+- 17 U.S.C. § 501 (Infringement remedies)
+- Berne Convention for the Protection of Literary and Artistic Works
+  (international automatic copyright — no registration required)
+
+Copyright exists from the moment of creation. Registration with the U.S.
+Copyright Office (17 U.S.C. § 408) enhances remedies but is not required
+for copyright to exist.
+
+Registration recommended: copyright.gov — Fee: $65
+Statutory damages available only if registered before infringement or
+within 3 months of publication (17 U.S.C. § 412).
+
+═══════════════════════════════════════════════════════════════
+SECTION 2 — PATENT RIGHTS
+═══════════════════════════════════════════════════════════════
+
+LegalPath contains novel methods and systems that may be patentable
+subject matter under 35 U.S.C. § 101. Patent application(s) pending.
+
+Provisional patent application recommended:
+- 35 U.S.C. § 111(b) — establishes priority date
+- 35 U.S.C. § 119(e) — one year to file non-provisional
+- Fee: $65 (micro entity) / $130 (small entity)
+
+Notice of patent pending provided in accordance with 35 U.S.C. § 287(a):
+"Patent Pending" appears on all copies and in all documentation.
+
+═══════════════════════════════════════════════════════════════
+SECTION 3 — TRADE SECRET PROTECTION
+═══════════════════════════════════════════════════════════════
+
+The following elements of LegalPath are protected as trade secrets under:
+- 18 U.S.C. § 1836 (Defend Trade Secrets Act — federal)
+- 765 ILCS 1005 (Illinois Uniform Trade Secrets Act)
+
+Protected trade secrets include:
+- Analysis engine algorithms (38 clause rules, 10 gap checks, 8 loopholes)
+- Document template generation logic
+- Pattern matching systems
+- Case law database structure
+- Chatbot response engine logic
+
+Trade secret protection requires:
+1. Reasonable efforts to maintain secrecy ✅ (password gate, no public source)
+2. Independent economic value ✅ (proprietary analysis engine)
+3. Not generally known ✅ (unique implementation)
+
+═══════════════════════════════════════════════════════════════
+SECTION 4 — TRADEMARK RIGHTS
+═══════════════════════════════════════════════════════════════
+
+The following marks are claimed by Paul Adcock under common law:
+- LegalPath™ (software name)
+- LegalPath Case Builder™ (full product name)
+- Case Builder System & Analysis Engine™ (system name)
+
+Protected under:
+- 15 U.S.C. § 1125 (Lanham Act — unfair competition)
+- Common law trademark rights (use in commerce establishes rights)
+
+Federal registration recommended:
+- USPTO.gov — Fee: $250-350
+- Provides nationwide protection and statutory damages
+
+═══════════════════════════════════════════════════════════════
+SECTION 5 — LICENSE GRANT
+═══════════════════════════════════════════════════════════════
+
+PERSONAL USE: Free for personal, non-commercial use by individuals
+for their own legal self-advocacy.
+
+COMMERCIAL USE: Requires a written license from Paul Adcock.
+Contact: paul.dev.co@outlook.com
+
+PROHIBITED WITHOUT LICENSE:
+- Redistributing LegalPath for commercial purposes
+- Modifying and redistributing under a different name
+- Using LegalPath as part of a paid service
+- Removing copyright or patent notices
+- Reverse engineering the analysis engine
+- Using the document templates in commercial software
+
+PERMITTED WITHOUT LICENSE:
+- Personal use for legal self-advocacy
+- Sharing the app link with individuals who need it
+- Using generated documents for personal legal matters
+- Installing on personal devices
+
+═══════════════════════════════════════════════════════════════
+SECTION 6 — DMCA PROTECTION
+═══════════════════════════════════════════════════════════════
+
+Digital Millennium Copyright Act (17 U.S.C. § 512) notice:
+All content in LegalPath is protected by copyright. Unauthorized copying,
+distribution, or hosting of LegalPath on any website or platform may be
+subject to DMCA takedown notice (17 U.S.C. § 512(c)(3)).
+
+DMCA takedown process:
+1. Identify infringing material
+2. Send takedown notice to hosting provider
+3. Provider must remove within 48 hours
+4. No cost — free to file
+
+═══════════════════════════════════════════════════════════════
+SECTION 7 — INTELLECTUAL PROPERTY NOTICE
+═══════════════════════════════════════════════════════════════
+
+In accordance with 35 U.S.C. § 287(a), notice is hereby given that
+LegalPath Case Builder System & Analysis Engine may be covered by one
+or more pending patent applications in the United States.
+
+═══════════════════════════════════════════════════════════════
+SECTION 8 — DATA RIGHTS
+═══════════════════════════════════════════════════════════════
+
+LegalPath stores all user data locally in the browser (localStorage and
+IndexedDB). No data is transmitted to any server. Paul Adcock does not
+collect, store, or have access to any user data entered into LegalPath.
+
+Users own their data. Deleting browser data permanently removes all
+information stored by LegalPath.
+
+═══════════════════════════════════════════════════════════════
+SECTION 9 — NO WARRANTY
+═══════════════════════════════════════════════════════════════
+
+LegalPath is provided "AS IS" without warranty of any kind, express or
+implied, including but not limited to warranties of merchantability,
+fitness for a particular purpose, and non-infringement.
+
+LegalPath is NOT a law firm and does NOT provide legal advice.
+Always consult a licensed attorney for legal matters.
+
+═══════════════════════════════════════════════════════════════
+SECTION 10 — GOVERNING LAW
+═══════════════════════════════════════════════════════════════
+
+This license is governed by the laws of the State of Illinois and the
+United States of America.
+
+Venue: Illinois state or federal courts.
+
+═══════════════════════════════════════════════════════════════
+SECTION 11 — COPYRIGHT HEADER
+═══════════════════════════════════════════════════════════════
+
+All source files shall include the following header:
+
+/*
+ * LegalPath Case Builder System & Analysis Engine
+ * © 2025 Paul Adcock (paul.dev.co@outlook.com) — Patent Pending
+ * All Rights Reserved
+ * 
+ * This software is the proprietary work product of Paul Adcock.
+ * Unauthorized copying, modification, distribution, or use is prohibited
+ * under 17 U.S.C. § 501, 18 U.S.C. § 1836, and applicable state law.
+ * 
+ * Personal use: Free
+ * Commercial use: Requires license — contact paul.dev.co@outlook.com
+ */
+
+═══════════════════════════════════════════════════════════════
+CONTACT
+═══════════════════════════════════════════════════════════════
+
+Copyright Holder: Paul Adcock
+Email: paul.dev.co@outlook.com
+GitHub: github.com/Turtle-PB/legalpath
+License: This file (LICENSE.txt)
+Date: July 2025
+
+═══════════════════════════════════════════════════════════════
+END OF LICENSE
+═══════════════════════════════════════════════════════════════
