@@ -1,0 +1,44 @@
+{
+  "name": "LegalPath — Case Builder",
+  "short_name": "LegalPath",
+  "description": "Self-contained legal case builder with document analysis, ADA/ERISA/disability guidance, and legal document generator. © 2025 Paul Adcock — Patent Pending.",
+  "version": "1.0.0",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a1d24",
+  "theme_color": "#8E44AD",
+  "author": "Paul Adcock (paul.dev.co@outlook.com)",
+  "copyright": "© 2025 Paul Adcock — Patent Pending",
+  "categories": ["legal", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "features": [
+    "Document analysis engine (38 clause rules, 10 gap checks, 8 loophole detectors)",
+    "ADA violation detector with federal statute citations",
+    "Medical misconduct detector for capacity certification challenges",
+    "ERISA disability appeal guidance (Lincoln Financial)",
+    "Social Security SSDI/SSI application and appeal guidance",
+    "Bankruptcy and unfair credit practices (FDCPA/FCRA/CFPB)",
+    "Copyright and patent filing guidance (USA, Illinois, International PCT)",
+    "32+ real court cases against Syncreon/DP World with direct links",
+    "Legal document generator (demand letters, EEOC charges, appeals)",
+    "Quick email buttons for HR, Lincoln Financial, SSA, and doctors",
+    "Case Assistant chatbot for action plan building",
+    "Self-advocate guide with legal term translator and rights cheat sheet",
+    "100% local — no server, no cloud, IndexedDB secure storage"
+  ]
+}
