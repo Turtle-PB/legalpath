@@ -1051,6 +1051,32 @@ const PATHWAY_STEPS = [
     desc: 'If DP World does not cooperate, your attorney may file a civil claim for: IP misappropriation, unjust enrichment, breach of contract, or capacity challenge to void the NDA. Contingency arrangements common for strong cases.',
     actions: ['Attorney evaluates', 'File complaint', 'Begin discovery']
   }
+  {
+    name: 'Danfoss',
+    rating: 1.5,
+    locations: 'Iowa + Illinois + Nationwide + Global (Denmark HQ)',
+    issues: ['Unsafe Training', 'Chemical Exposure', 'No PPE', 'Disability Denial', 'Unfair Termination', 'OSHA Citations', 'Cancer Risk', 'Workers Comp Denial'],
+    tagline: 'Unfair expectations, chemical exposure without protection, and disability claim denials',
+    description: `Danfoss is a Danish multinational manufacturer of HVAC, refrigeration, and power solutions. Former and current employees report multiple serious concerns:
+
+UNSAFE TRAINING PRACTICES: New hires are expected to learn complex HVAC and fire suppression system builds with minimal training. Employees report "no training, no verification, no accountability" (Glassdoor review). Workers who cannot learn fast enough — despite inadequate training — are terminated.
+
+CHEMICAL EXPOSURE & CANCER RISK: The plant uses numerous chemicals in manufacturing processes that can cause cancer and other serious health conditions. Employees report that personal protective equipment (PPE) is not provided free of charge — workers must pay extra for adequate protection. This violates OSHA standards requiring employers to provide PPE at no cost (29 CFR 1910.132).
+
+DISABILITY CLAIM DENIALS: Employees injured ON THE JOB report having their workers compensation and disability claims denied. Because training is poorly coordinated, injuries occur — and then the company fights the resulting claims rather than supporting injured workers.
+
+UNFAIR TERMINATION: Workers report being fired for not learning complex systems quickly enough, despite the company providing inadequate training. This creates a revolving door of new hires who are set up to fail.
+
+OSHA INSPECTIONS: Danfoss Power Solutions has been subject to OSHA inspections (Iowa facility, Inspection #1288986.015). OSHA citations are public record and available at osha.gov/ords/imis.`,
+    sources: [
+      { label: 'Glassdoor Reviews', url: 'https://www.glassdoor.com/Reviews/Danfoss-Reviews-E134544.htm' },
+      { label: 'Indeed Reviews', url: 'https://www.indeed.com/cmp/Danfoss/reviews' },
+      { label: 'OSHA Inspection #1288986', url: 'https://www.osha.gov/ords/imis/establishment.inspection_detail?id=1288986.015' },
+      { label: 'Danfoss Official Site', url: 'https://www.danfoss.com' },
+      { label: 'OSHA PPE Standard (29 CFR 1910.132)', url: 'https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.132' }
+    ],
+    posterImage: null
+  }
 ];
 
 // ════════════════════════════════════════════
@@ -7344,7 +7370,7 @@ function genBoycottPoster(companyIndex) {
         <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">File complaints with:</div>
         <div style="font-size:11px;color:var(--text-dim);margin-bottom:16px">
           IL Attorney General: 800-386-5438 • CFPB: 855-411-2372 • FTC: 877-382-4357<br>
-          EEOC: 1-800-669-4000 • NLRB: 866-667-6572 • BBB: bbb.org<br>
+          EEOC: 1-800-669-4000 • NLRB: 866-667-6572 • BBB: bbb.org • OSHA: 1-800-321-6742<br>
           CourtListener: courtlistener.com • Archive.org: archive.org
         </div>
         <div style="font-size:10px;color:var(--text-faint);margin-top:16px;border-top:1px solid var(--border);padding-top:12px">
