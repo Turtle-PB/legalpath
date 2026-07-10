@@ -1065,29 +1065,74 @@ const PATHWAY_STEPS = [
     desc: 'If DP World does not cooperate, your attorney may file a civil claim for: IP misappropriation, unjust enrichment, breach of contract, or capacity challenge to void the NDA. Contingency arrangements common for strong cases.',
     actions: ['Attorney evaluates', 'File complaint', 'Begin discovery']
   }
+];
+
+const BAD_COMPANIES = [
+  {
+    name: 'DP World / Syncreon / TDS Logistics',
+    rating: 1.0,
+    locations: 'Dubai HQ + USA (IL, MI, OH, PA, TX, MO, CA) + Australia + India + Worldwide',
+    issues: ['Wage Theft', 'Discrimination', 'Corruption', 'Bribery', 'Forced Overtime', 'Union Suppression', '32+ Federal Lawsuits', 'Tax Avoidance', 'NLRB Violations', 'Worker Exploitation', 'Predatory NDAs', 'Safety Violations'],
+    tagline: '32+ federal lawsuits, bribery convictions, wage theft, union suppression',
+    description: 'DP World acquired Syncreon (formerly TDS Logistics) for $1.2 billion in 2021. Dubai government-owned. Controls 40% of Australian ports, pays no Australian corporate tax. NLRB case: Syncreon America, Inc. aka DP World (Case 07-RC-335404).',
+    sources: [
+      { label: 'NLRB Case 07-RC-335404', url: 'https://www.nlrb.gov' },
+      { label: 'The National News (UAE)', url: 'https://www.thenationalnews.com' },
+      { label: 'Reuters', url: 'https://www.reuters.com' },
+      { label: 'CourtListener', url: 'https://www.courtlistener.com/?q=syncreon' },
+      { label: 'Archive.org', url: 'https://web.archive.org/web/*/syncreon*' },
+      { label: 'Law360', url: 'https://www.law360.com' },
+      { label: 'Baird Maritime', url: 'https://www.bairdmaritime.com' },
+      { label: 'Maritime Union Australia', url: 'https://www.mua.org.au' },
+      { label: 'LinkedIn India', url: 'https://www.linkedin.com' }
+    ],
+    posterImage: 'https://v3b.fal.media/files/b/0aa16368/itKlqBTKXf30_8CCzTm1p_It80Y5Lh.png'
+  },
   {
     name: 'Danfoss',
     rating: 1.5,
     locations: 'Iowa + Illinois + Nationwide + Global (Denmark HQ)',
     issues: ['Unsafe Training', 'Chemical Exposure', 'No PPE', 'Disability Denial', 'Unfair Termination', 'OSHA Citations', 'Cancer Risk', 'Workers Comp Denial'],
     tagline: 'Unfair expectations, chemical exposure without protection, and disability claim denials',
-    description: `Danfoss is a Danish multinational manufacturer of HVAC, refrigeration, and power solutions. Former and current employees report multiple serious concerns:
-
-UNSAFE TRAINING PRACTICES: New hires are expected to learn complex HVAC and fire suppression system builds with minimal training. Employees report "no training, no verification, no accountability" (Glassdoor review). Workers who cannot learn fast enough — despite inadequate training — are terminated.
-
-CHEMICAL EXPOSURE & CANCER RISK: The plant uses numerous chemicals in manufacturing processes that can cause cancer and other serious health conditions. Employees report that personal protective equipment (PPE) is not provided free of charge — workers must pay extra for adequate protection. This violates OSHA standards requiring employers to provide PPE at no cost (29 CFR 1910.132).
-
-DISABILITY CLAIM DENIALS: Employees injured ON THE JOB report having their workers compensation and disability claims denied. Because training is poorly coordinated, injuries occur — and then the company fights the resulting claims rather than supporting injured workers.
-
-UNFAIR TERMINATION: Workers report being fired for not learning complex systems quickly enough, despite the company providing inadequate training. This creates a revolving door of new hires who are set up to fail.
-
-OSHA INSPECTIONS: Danfoss Power Solutions has been subject to OSHA inspections (Iowa facility, Inspection #1288986.015). OSHA citations are public record and available at osha.gov/ords/imis.`,
+    description: 'Danfoss is a Danish multinational manufacturer of HVAC, refrigeration, and power solutions. Employees report inadequate training on complex HVAC builds, chemical exposure without adequate PPE, and disability claim denials for on-the-job injuries. OSHA Inspection #1288986.015 on file.',
     sources: [
       { label: 'Glassdoor Reviews', url: 'https://www.glassdoor.com/Reviews/Danfoss-Reviews-E134544.htm' },
       { label: 'Indeed Reviews', url: 'https://www.indeed.com/cmp/Danfoss/reviews' },
       { label: 'OSHA Inspection #1288986', url: 'https://www.osha.gov/ords/imis/establishment.inspection_detail?id=1288986.015' },
       { label: 'Danfoss Official Site', url: 'https://www.danfoss.com' },
       { label: 'OSHA PPE Standard (29 CFR 1910.132)', url: 'https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.132' }
+    ],
+    posterImage: null
+  },
+  {
+    name: 'Grifols Plasma (Rockford, IL)',
+    rating: 1.0,
+    locations: 'Rockford, IL + Nationwide plasma centers',
+    issues: ['Discrimination', 'Manager Harassment', 'Hostile Environment', 'Stigmatizing Donors', 'ADA Violation', 'Defamatory Statements', 'Unprofessional Conduct'],
+    tagline: 'Denied employment for donating plasma — called donors junkies',
+    description: 'Grifols Plasma in Rockford, IL denied employment to a plasma donor, citing they dont hire junkies. This is discrimination and defamation.',
+    sources: [
+      { label: 'Grifols Corporate', url: 'https://www.grifols.com' },
+      { label: 'File EEOC Complaint', url: 'https://www.eeoc.gov/how-file-charge-employment-discrimination' },
+      { label: 'IL AG Consumer Complaint', url: 'https://www.illinoisattorneygeneral.gov/consumers/filecomplaint/' },
+      { label: 'CFPB Complaint', url: 'https://www.consumerfinance.gov/complaint/' },
+      { label: 'BBB File Complaint', url: 'https://www.bbb.org/file-a-complaint' }
+    ],
+    posterImage: null
+  },
+  {
+    name: 'JD Byrider / CNAC',
+    rating: 1.2,
+    locations: 'Rockford, IL + State Line area + Nationwide',
+    issues: ['Predatory Lending', 'Yo-Yo Financing', 'Hidden Fees', 'High APR', 'Repossession Abuse', 'Forged Documents', 'CFPB Action', 'State AG Lawsuit', 'GPS Tracker', 'Repair Delays', 'Unauthorized Add-ons', 'Inaccurate Credit Reporting'],
+    tagline: 'Predatory car loans that trap vulnerable families',
+    description: 'JD Byrider and CNAC have been subject to numerous consumer complaints, state AG lawsuits, and a $1.5M settlement with Massachusetts for predatory auto lending.',
+    sources: [
+      { label: 'BBB Complaints (Rockford)', url: 'https://www.bbb.org/us/il/rockford/profile/used-car-dealers/jd-byrider-0117-9000191973' },
+      { label: 'Mass. AG $1.5M Settlement', url: 'https://www.mass.gov/news/ag-healey-secures-15-million-from-jd-byrider-for-deceptive-and-unfair-sales-practices' },
+      { label: 'Consumer Complaints', url: 'https://www.facebook.com/groups/exposingjdbyrider/' },
+      { label: 'Trustpilot Reviews', url: 'https://www.trustpilot.com/review/jdbyrider.com' },
+      { label: 'Reddit Reviews', url: 'https://www.reddit.com/r/UsedCars/search/?q=jd+byrider' }
     ],
     posterImage: null
   }
@@ -7205,97 +7250,6 @@ function renderConsumer() {
   `;
 }
 
-// ── BAD COMPANY INDEX ──
-const BAD_COMPANIES = [
-  {
-    name: 'DP World / Syncreon / TDS Logistics',
-    rating: 1.0,
-    locations: 'Dubai HQ + USA (IL, MI, OH, PA, TX, MO, CA) + Australia + India + Worldwide',
-    issues: ['Wage Theft', 'Discrimination', 'Corruption', 'Bribery', 'Forced Overtime', 'Union Suppression', '32+ Federal Lawsuits', 'Tax Avoidance', 'NLRB Violations', 'Worker Exploitation', 'Predatory NDAs', 'Safety Violations'],
-    description: `DP World (Dubai government-owned, $1.2B acquisition of Syncreon in 2021) and its predecessor entities (Syncreon, TDS Logistics / Transport Systems LLC) have a documented history of labor violations, corruption, and worker exploitation across multiple countries.
-
-CORPORATE HISTORY:
-• TDS Logistics → rebranded as Syncreon → acquired by DP World for $1.2 billion in 2021
-• Dubai government-owned — controls 40% of Australian ports, pays no Australian corporate tax
-• NLRB case: Syncreon America, Inc. aka DP World (Case 07-RC-335404) — union-related labor dispute
-
-KNOWN PRACTICES:
-• WAGE THEFT: 32+ federal lawsuits filed against Syncreon in US courts — including class action wage and hour cases (Ayala, Galeas) that SETTLED. Workers report unpaid overtime, denied breaks, and inaccurate timekeeping.
-• DISCRIMINATION: Multiple employment discrimination cases filed (Smith v. Syncreon, Fox v. Syncreon, Kaufmann v. Syncreon). Pattern of adverse treatment of vulnerable employees, including those with disabilities.
-• CORRUPTION & BRIBERY: Former senior DP World manager jailed and fined Dh4.85M in UAE bribery case involving port contracts. DP World executives in India under investigation for alleged bribery. CEO linked to scandal.
-• UNION SUPPRESSION: NLRB cases involving Syncreon/DP World. Union dues deducted from paychecks in disputed circumstances. Workers report pressure against organizing.
-• FORCED OVERTIME & SAFETY: Maritime Union of Australia reports "egregious attacks on safety and working conditions." Workers describe forced overtime, unsafe conditions, and robot-over-humans automation threatening jobs.
-• PREDATORY NDAs: Employees pressured to sign NDAs and releases during mental health crises without legal representation — then the company uses those agreements to suppress claims.
-• TAX AVOIDANCE: DP World pays no Australian corporate tax despite controlling 40% of ports. Operates through complex offshore structures.
-• WORKER EXPLOITATION: Instagram/Facebook posts from labor unions describe "exploitation, hoarding profits, sacking workers, robots over humans, and paying little to no tax."
-
-The 32+ federal lawsuits against Syncreon (now archived at archive.org and CourtListener) document a pattern of labor law violations across Michigan, Illinois, Pennsylvania, Texas, Missouri, California, and South Carolina.`,
-    tagline: '32+ federal lawsuits, bribery convictions, wage theft, and worker exploitation worldwide',
-    sources: [
-      { label: 'NLRB Case (Syncreon/DP World)', url: 'https://www.nlrb.gov/case/07-RC-335404' },
-      { label: 'DP World Bribery Conviction (UAE)', url: 'https://www.thenationalnews.com/uae/jail-time-and-millions-in-fines-for-defendants-involved-in-dp-world-bribery-case-1.679238' },
-      { label: 'DP World India Bribery Probe', url: 'https://www.linkedin.com/posts/fangsean_globallogistics-dpworld-shippingnews-activity-7416385033323696128-Eqi9' },
-      { label: 'MUA: DP World Safety Attacks', url: 'https://www.facebook.com/MaritimeUnionAustralia/posts/777654184386895' },
-      { label: 'Reuters: $1.2B Syncreon Acquisition', url: 'https://www.reuters.com/world/middle-east/dp-world-acquires-logistics-firm-syncreon-12-bln-deal-2021-07-01/' },
-      { label: 'CourtListener: Syncreon Cases', url: 'https://www.courtlistener.com/?type=r&q=syncreon' },
-      { label: 'Archive.org: Syncreon Court Docs', url: 'https://archive.org/search?tab=all&query=syncreon' },
-      { label: 'Syncreon Ch.15 Bankruptcy ($1.1B Debt)', url: 'https://www.law360.com/technology/archive/2019/07' },
-      { label: 'CEO Scandal (Baird Maritime)', url: 'https://www.bairdmaritime.com/offshore/column-its-all-gone-wrong-nigerian-corruption-trial-dp-world-boss-scandal-saudi-ski-games-cancelled-offshore-accounts' }
-    ]
-  },
-  {
-    name: 'Grifols Plasma (Rockford, IL)',
-    rating: 1.0,
-    locations: 'Rockford, IL + Nationwide plasma centers',
-    issues: ['Discrimination', 'Manager Harassment', 'Hostile Environment', 'Stigmatizing Donors', 'ADA Violation', 'Defamatory Statements', 'Unprofessional Conduct'],
-    description: `A Grifols Plasma center manager denied employment to a prospective applicant while making defamatory and stigmatizing statements, citing that they "don't hire junkies that don't show up for work but want to donate blood to save lives."
-
-This is problematic on multiple levels:
-
-• DISCRIMINATION: The manager made assumptions about the applicant's character and employment reliability based on the fact that they donate plasma — treating plasma donation as evidence of substance abuse.
-• DEFAMATORY: Calling a prospective employee a "junkie" is a false and damaging characterization. Plasma donors donate for many reasons — to save lives, to help patients who need life-saving therapies, and because they care about their community.
-• STIGMATIZING DONORS: Grifols' entire business model depends on plasma donors. For a manager to insult and stigmatize the very people who make their business possible is not only hypocritical — it creates a hostile environment for donors and employees alike.
-• ADA VIOLATION POTENTIAL: If the manager assumed the donor had a substance use disorder (a recognized disability under the ADA), denying employment based on that assumption is disability discrimination under 42 U.S.C. § 12112(b)(1).
-• DISPARATE TREATMENT: Some donors donate to save lives. Others may donate for compensation. The manager judged all donors through a discriminatory lens, assuming bad faith.
-• UNPROFESSIONAL CONDUCT: A hiring manager representing Grifols made these statements to an applicant — this reflects on the company's culture and hiring practices.
-
-Plasma donation saves lives. Donors deserve respect, not insults. No one should be denied employment because they donate plasma — and calling someone a "junkie" for doing so is defamation.`,
-    tagline: 'Denied employment for donating plasma — called donors "junkies"',
-    sources: [
-      { label: 'Grifols Corporate', url: 'https://www.grifols.com' },
-      { label: 'File EEOC Complaint', url: 'https://www.eeoc.gov/filing-charge-discrimination' },
-      { label: 'IL AG Consumer Complaint', url: 'https://www.illinoisattorneygeneral.gov/consumers/filecomplaint/' },
-      { label: 'CFPB Complaint', url: 'https://www.consumerfinance.gov/complaint/' },
-      { label: 'BBB File Complaint', url: 'https://www.bbb.org/file-a-complaint' }
-    ]
-  },
-  {
-    name: 'JD Byrider / CNAC',
-    rating: 1.2,
-    locations: 'Rockford, IL + State Line area + Nationwide',
-    issues: ['Predatory Lending', 'Yo-Yo Financing', 'Hidden Fees', 'High APR', 'Repossession Abuse', 'Forged Documents', 'CFPB Action', 'State AG Lawsuit', 'GPS Tracker', 'Repair Delays', 'Unauthorized Add-ons', 'Inaccurate Credit Reporting'],
-    description: `JD Byrider (now rebranded) and its financing arm CNAC have been the subject of numerous consumer complaints, state AG lawsuits, and a $1.5M settlement with Massachusetts for predatory auto lending.
-
-KNOWN PRACTICES:
-• GPS TRACKERS: Vehicles are equipped with GPS tracking devices without clear disclosure, allowing the dealer to monitor customer location at all times and use it for aggressive repossession.
-• REPAIR DELAYS: Vehicles brought in for warranty or promised repairs experience excessive delays — customers report waiting weeks or months while still making payments on a car they can't drive.
-• UNAUTHORIZED ADD-ONS: Extended warranty coverage and other add-on products are added to contracts without the customer's informed consent, inflating the loan balance and monthly payments.
-• INACCURATE CREDIT REPORTING: CNAC has been accused of reporting inaccurate information to credit bureaus — including false late payments, inflated balances, and incorrect account statuses — damaging customers' credit scores and trapping them in subprime lending.
-• PREDATORY INTEREST RATES: APR rates far above market (often 20-30%+) designed to trap low-income buyers in unaffordable loans, ensuring total cost far exceeds the vehicle's actual value.
-• FORGED SIGNATURES: Reports of dealership forging customer signatures on contract add-ons and financing documents.
-• REPOSSESSION ABUSE: Aggressive repossession practices, often using GPS tracker data, taking vehicles with little or no notice — even when payments are current.
-
-Rockford, IL location has documented complaints matching all of the above patterns. The company has been accused of selling poorly reconditioned vehicles at inflated prices with unaffordable loan terms targeting low-income consumers.`,
-    tagline: 'GPS trackers, predatory rates, unauthorized add-ons, and credit report fraud',
-    sources: [
-      { label: 'BBB Complaints', url: 'https://www.bbb.org/us/il/rockford/profile/used-car-dealers/jd-byrider-rockford-0654-88700846/complaints' },
-      { label: 'Mass. AG $1.5M Settlement', url: 'https://www.mass.gov/news/jd-byrider-to-pay-15-million-and-cancel-debts-of-thousands-of-consumers-who-received-predatory-car-loans' },
-      { label: 'Consumer Complaints (FB)', url: 'https://www.facebook.com/groups/exposingjdbyrider/' },
-      { label: 'Trustpilot Reviews', url: 'https://www.trustpilot.com/review/jdbyrider.com' },
-      { label: 'Reddit Reviews', url: 'https://www.reddit.com/r/CRedit/comments/1fknr2h/jd_byrider_ruined_my_boyfriends_life/' }
-    ]
-  }
-];
 
 function genBoycottPoster(companyIndex) {
   const company = BAD_COMPANIES[companyIndex];

@@ -14,6 +14,9 @@
 ### 📊 Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
+### 🛤️ Legal Pathway
+![Legal Pathway](screenshots/pathway.png)
+
 ### 🔓 Release Review — 7-Layer Document Analysis
 ![Release Review](screenshots/release.png)
 
@@ -29,11 +32,41 @@
 ### 📈 Credit Score — Simulator & Dispute Tools
 ![Credit Score](screenshots/creditscore.png)
 
+### 💰 Bankruptcy & Credit
+![Bankruptcy](screenshots/bankruptcy.png)
+
+### ♿ Disability Claims
+![Disability](screenshots/disability.png)
+
+### 🏦 Social Security Disability
+![Social Security](screenshots/ssa.png)
+
 ### 🛠️ Self-Contained Tools
 ![Tools](screenshots/tools.png)
 
 ### 🇺🇸 Immigrant & Community Resources
 ![Immigrant Resources](screenshots/immigrant.png)
+
+### 📚 Case Law — 32+ Precedents
+![Case Law](screenshots/caselaw.png)
+
+### 🖼️ Gallery — AI Legal Artwork
+![Gallery](screenshots/gallery.png)
+
+### 🔒 Identity Theft Recovery
+![Identity Theft](screenshots/idtheft.png)
+
+### 🔐 IP & Patents
+![IP & Patents](screenshots/ip.png)
+
+### 🎯 Self-Advocate
+![Self-Advocate](screenshots/advocate.png)
+
+### 🏥 Medical Records
+![Medical Records](screenshots/medical.png)
+
+### 📱 Mobile App
+![Mobile App](screenshots/mobile.png)
 
 ---
 
