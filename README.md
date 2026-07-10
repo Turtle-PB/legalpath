@@ -91,6 +91,7 @@ Publicly documented predatory businesses with sources:
 | DP World / Syncreon / TDS Logistics | 32+ federal lawsuits, bribery convictions, wage theft, NLRB violations, union suppression | NLRB, Reuters, CourtListener, Archive.org, Mass. AG |
 | JD Byrider / CNAC | GPS trackers, predatory APR, unauthorized add-ons, credit fraud, $1.5M settlement | BBB, Mass. AG, Trustpilot, Reddit |
 | Grifols Plasma (Rockford, IL) | Employment discrimination, defamatory statements, ADA violation | EEOC, IL AG, BBB |
+| Danfoss | Unsafe training, chemical exposure, no PPE, disability denial, unfair termination, cancer risk, OSHA citations, workers comp denial | Glassdoor, Indeed, OSHA Inspection #1288986, OSHA PPE Standard (29 CFR 1910.132) |
 
 Each company includes a **boycott poster generator** with documented issues and complaint contacts.
 
@@ -143,7 +144,7 @@ LegalPath is free and will always be free. If it helped you:
 | Document templates | 33+ |
 | Analysis rules | 38 clauses + 10 gaps + 8 loopholes |
 | Case laws indexed | 32+ |
-| Bad companies indexed | 3 |
+| Bad companies indexed | 4 |
 | Legal terms dictionary | 36 |
 | PWA installable | ✅ |
 | Total size | ~750KB (single HTML file) |
