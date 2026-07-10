@@ -951,6 +951,19 @@ textarea{resize:vertical;min-height:80px}
       <div class="nav-item" data-view="assistant"><span class="nav-icon">🤖</span><span>Case Assistant</span></div>
       <div class="nav-item" data-view="letters"><span class="nav-icon">✉️</span><span>Letters & Requests</span></div>
     </div>
+    <div style="padding:8px 12px;border-top:1px solid var(--border);margin-top:8px">
+      <div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🌐 Language</div>
+      <select id="lang-select" onchange="changeLanguage(this.value)" style="width:100%;background:var(--bg-input);border:1px solid var(--border);color:var(--text);padding:6px 8px;border-radius:var(--radius);font-size:12px;cursor:pointer;outline:none">
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="tl">🇵🇭 Tagalog</option>
+      </select>
+    <div style="padding:8px 12px;border-top:1px solid var(--border);margin-top:8px"><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🌐 Language</div><select id="lang-select" onchange="changeLanguage(this.value)" style="width:100%;background:var(--bg-input);border:1px solid var(--border);color:var(--text);padding:6px 8px;border-radius:var(--radius);font-size:12px;cursor:pointer;outline:none"><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option><option value="zh">🇨🇳 中文</option><option value="ko">🇰🇷 한국어</option><option value="vi">🇻🇳 Tiếng Việt</option><option value="ar">🇸🇦 العربية</option><option value="tl">🇵🇭 Tagalog</option></select></div>
+    </div>
     <div class="sidebar-footer">
       <div>© 2025 Paul Adcock</div>
       <div style="margin-top:2px">[Your Email]</div>
@@ -970,6 +983,7 @@ textarea{resize:vertical;min-height:80px}
     <div class="content" id="content"></div>
   </div>
 </div>
+  <script src="i18n.js"></script>
 
 <script>
 // ════════════════════════════════════════════
@@ -13221,6 +13235,7 @@ function boot() {
         }, 500);
       }, 300);
     }
+  setTimeout(initLanguage, 200);
   }, 180);
 }
 
