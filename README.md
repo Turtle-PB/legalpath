@@ -6,6 +6,25 @@
 
 ---
 
+## 📸 App Screenshots
+
+### 📊 Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### 🔓 Release Review — 7-Layer Document Analysis
+![Release Review](screenshots/release-review.png)
+
+### 🪄 Document Wizard — 33+ Templates
+![Document Wizard](screenshots/document-wizard.png)
+
+### 🤖 Case Assistant — Mental Health Aware
+![Case Assistant](screenshots/case-assistant.png)
+
+### 🚗 Bad Company Index — Boycott Posters
+![Bad Company Index](screenshots/bad-company.png)
+
+---
+
 ## 🎯 Our Mission
 
 > **LegalPath exists to democratize legal access for everyone — regardless of income, background, or circumstance.**
