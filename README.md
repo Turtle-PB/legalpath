@@ -8,20 +8,32 @@
 
 ## 📸 App Screenshots
 
+### 🔒 Password Gate
+![Password Gate](screenshots/password-gate.png)
+
 ### 📊 Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
 ### 🔓 Release Review — 7-Layer Document Analysis
-![Release Review](screenshots/release-review.png)
+![Release Review](screenshots/release.png)
 
 ### 🪄 Document Wizard — 33+ Templates
-![Document Wizard](screenshots/document-wizard.png)
+![Document Wizard](screenshots/wizard.png)
 
 ### 🤖 Case Assistant — Mental Health Aware
-![Case Assistant](screenshots/case-assistant.png)
+![Case Assistant](screenshots/assistant.png)
 
-### 🚗 Bad Company Index — Boycott Posters
-![Bad Company Index](screenshots/bad-company.png)
+### 🚗 Consumer Rights — Bad Company Index
+![Consumer Rights](screenshots/consumer.png)
+
+### 📈 Credit Score — Simulator & Dispute Tools
+![Credit Score](screenshots/creditscore.png)
+
+### 🛠️ Self-Contained Tools
+![Tools](screenshots/tools.png)
+
+### 🇺🇸 Immigrant & Community Resources
+![Immigrant Resources](screenshots/immigrant.png)
 
 ---
 
