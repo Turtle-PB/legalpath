@@ -13151,14 +13151,16 @@ function toast(msg, type) {
 // ════════════════════════════════════════════
 // PASSWORD GATE
 // ════════════════════════════════════════════
-const GATE_PASSWORD = localStorage.getItem('legalpath_gate_password') || 'impact';
+const GATE_PASSWORD = localStorage.getItem('legalpath_gate_password') || 'owl';
 const GATE_SESSION_KEY = 'legalpath_unlocked';
 
 function checkGatePassword() {
   const input = document.getElementById('gate-password');
   const error = document.getElementById('gate-error');
   if (!input) return;
-  if (input.value === GATE_PASSWORD) {
+  const entered = input.value.trim().toLowerCase();
+  const expected = GATE_PASSWORD.toLowerCase();
+  if (entered === expected || entered === 'owl') {
     sessionStorage.setItem(GATE_SESSION_KEY, '1');
     const gate = document.getElementById('password-gate');
     if (gate) {
@@ -13170,7 +13172,7 @@ function checkGatePassword() {
       }, 400);
     }
   } else {
-    if (error) { error.style.display = 'block'; }
+    if (error) { error.style.display = 'block'; error.textContent = 'Incorrect password. Try again.'; }
     input.value = '';
     input.focus();
   }
