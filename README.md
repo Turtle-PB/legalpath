@@ -1,3 +1,7 @@
+if you like the app dontate every dollar helps
+
+https://cash.app/$papesxoxo
+
 # ⚖️ LegalPath — Case Builder System & Analysis Engine
 
 **© 2025 Paul Adcock — Patent Pending**
