@@ -1000,6 +1000,7 @@ let state = {
     employmentStart: '',
     employmentEnd: '',
     claimValue: '',
+    claimNumber: '',
     description: ''
   },
   steps: {},
@@ -1300,6 +1301,7 @@ function renderDashboard() {
         <div class="field"><label>Employment End</label><input type="date" id="p-end" value="${esc(p.employmentEnd)}"></div>
       </div>
       <div class="field"><label>Estimated Claim Value</label><input type="text" id="p-value" value="${esc(p.claimValue)}" placeholder="e.g. $5,000,000"></div>
+      <div class="form-group"><label>Disability Claim Number</label><input class="input" id="p-claim-num" value="${esc(p.claimNumber)}" placeholder="e.g. 13272299"></div>
       <div class="field"><label>Brief Description of Your Claim</label><textarea id="p-desc" placeholder="Describe what you built, what was taken, and the circumstances of signing the NDA...">${esc(p.description)}</textarea></div>
       <button class="btn" onclick="saveProfile()">Save Case Details</button>
     </div>
@@ -1461,6 +1463,7 @@ function saveProfile() {
     employmentStart: val('p-start'),
     employmentEnd: val('p-end'),
     claimValue: val('p-value'),
+    claimNumber: val('p-claim-num'),
     description: val('p-desc')
   };
   save();
@@ -5451,6 +5454,217 @@ function buildAnalysisLetter(type, findings, gaps, loopholes, adaViolations, med
     body += `COUNTER-DEMAND\n\nI demand that ${employer}:\n1. Cease all enforcement based on the voidable agreement\n2. Preserve all evidence\n3. Engage in good-faith resolution of ADA violations\n4. Return all intellectual property I authored\n5. Refrain from retaliation\n\nIf enforcement is pursued, I will assert all defenses and file counterclaims.\n\nSincerely,\n\n${userName}\n${userEmail}\n${userState}\n\n---\nDRAFT — Have an attorney review before sending. Send via certified mail.`;
   }
 
+  else if (type === 'erisa-appeal-response') {
+    title = 'ERISA Appeal Response — Reopening Claim After Procedural Violations';
+    body = `${today}
+
+VIA CERTIFIED MAIL — RETURN RECEIPT REQUESTED
+
+The Lincoln National Life Insurance Company
+Disability and Life Claims Appeal
+PO Box 2578
+Omaha, NE 68103-2578
+
+RE: Short Term Disability (STD) Benefits — Claim #${p.claimNumber || '[Claim Number]'}
+    ${employer}
+
+Dear Claims Reviewer:
+
+I am in receipt of your letter regarding the above-referenced claim. I write to dispute your assertion that I have "exhausted" my administrative remedies, and to place Lincoln National on formal notice of serious ERISA procedural violations that render your decision defective.
+
+I. TIMELINE
+
+  1.  November 2022 — My STD claim was denied.
+  2.  November 2022 — I appealed and submitted additional medical information.
+  3.  February 6, 2026 — Lincoln issued an appeal decision, approximately 39 months after my appeal.
+  4.  July 2026 — Lincoln states my claim is "closed."
+
+II. ERISA PROCEDURAL VIOLATIONS
+
+  A. 29 CFR 2560.503-1(i) — TIMELINESS
+
+ERISA requires appeal decisions within 60 days, with a maximum 60-day extension for special circumstances — 120 days total. Lincoln took approximately 1,180 days. This is a per se procedural violation.
+
+  B. 29 CFR 2560.503-1(l) — DEEMED EXHAUSTION
+
+When a plan administrator fails to strictly adhere to ERISA claims procedure requirements, the claimant is deemed to have exhausted administrative remedies and may pursue remedies under ERISA Section 502(a). Lincoln's failure to issue a timely decision means I was deemed exhausted — not because Lincoln issued a valid decision, but because Lincoln failed to follow the law.
+
+  C. 29 CFR 2560.503-1(h) — FULL AND FAIR REVIEW
+
+Lincoln has not identified the names or qualifications of the medical professionals who reviewed my appeal, which involved mental health conditions.
+
+III. LEGAL EFFECT
+
+Under controlling federal law, Lincoln's procedural violations mean:
+  1. Any lawsuit will receive de novo review — the court reviews from scratch, without deference to Lincoln's denial.
+  2. I was deemed to have exhausted administrative remedies approximately March 2023 (120 days after my November 2022 appeal).
+  3. The 39-month delay is evidence of bad faith.
+
+IV. DEMAND
+
+  1. Reopen my claim immediately and process it in accordance with ERISA.
+  2. Provide a complete copy of my claim file, including names and qualifications of all reviewers.
+  3. Provide all internal guidelines relied upon in the denial.
+  4. Provide written acknowledgment of the procedural violations.
+  5. Explain in writing why the appeal decision took 39 months.
+  6. Preserve all evidence — this is a litigation hold notice.
+  7. Respond within thirty (30) days.
+
+V. RESERVATION OF RIGHTS
+
+This letter is written without prejudice and reserves all rights under ERISA, ADA, and all applicable federal and state laws.
+
+Sincerely,
+
+${userName}
+${userEmail}
+${userState}
+
+---
+DRAFT — Have an ERISA attorney review before sending. The extended delay is your strongest argument for de novo review. Send via certified mail.`;
+  }
+
+  else if (type === 'severance-challenge') {
+    title = 'Severance Voidability Challenge — Mental Health Crisis + Procedural Defects';
+    body = `${today}
+
+VIA CERTIFIED MAIL — RETURN RECEIPT REQUESTED
+
+To: Human Resources Department / General Counsel
+${employer}
+2851 High Meadow Circle, Suite 250
+Auburn Hills, MI 48326
+
+RE: Notice of Voidability — Separation & Release of Claims Agreement
+    ${userName}
+
+Dear Sir or Madam:
+
+I am writing to formally notify you that the Separation and Release of Claims Agreement I signed in or around April 2023 is voidable on multiple grounds. I demand that you cease all enforcement of this agreement immediately.
+
+I. MENTAL HEALTH CRISIS AT TIME OF SIGNING
+
+At the time I was required to sign the Separation and Release of Claims Agreement, I was experiencing an acute mental health crisis. I was actively seeking a licensed therapist but had not yet obtained one. I had no legal representation. I had no medical professional qualified to assess my mental health capacity.
+
+The circumstances surrounding my signing include:
+
+  1. MENTAL INCAPACITY: I was experiencing documented mental health symptoms including depression, anxiety, and cognitive impairment. I had not been evaluated by a qualified mental health professional. No one assessed my capacity to understand the legal consequences of signing a release of claims. Under Restatement (Second) of Contracts Section 15, a contract is voidable if one party lacked capacity due to mental illness and the other party had reason to know.
+
+  2. DURESS AND COERCION: I was pressured to sign while my Short Term Disability claim (Claim #${p.claimNumber || '[Claim Number]'}) was pending with Lincoln National. Lincoln had denied my claim in November 2022, I appealed, and Lincoln then delayed the appeal decision for over three (3) years — from November 2022 until February 2026. This delay overlapped precisely with the period in which I was pressured to sign the severance agreement. I was told I needed to sign quickly to receive severance payments and continued health insurance through COBRA. I was in a state of financial distress and mental health crisis, with no ability to wait or seek legal counsel.
+
+  3. NO MEETING OF THE MINDS: I did not understand the full legal consequences of the release. I did not understand that I was waiving claims related to my disability benefits, my mental health condition, or potential ADA violations. There was no true meeting of the minds required for a valid contract.
+
+II. PROCEDURAL DEFECTS IN THE AGREEMENT
+
+The Separation and Release of Claims Agreement contains the following procedural defects:
+
+  1. MISSING GOVERNING LAW CLAUSE: The agreement does not specify which state law governs, meaning the law of my state of employment likely applies.
+
+  2. MISSING SUCCESSOR LIABILITY CLAUSE: The agreement does not address successor liability. DP World acquired Syncreon in 2021 for $1.2 billion. The agreement does not bind successors, which may render it unenforceable against DP World.
+
+  3. MISSING DATE/SIGNATURE BLOCK: The agreement appears to be missing a date or signature block, making it impossible to prove when I signed or assess my mental state at the unknown date of signing.
+
+  4. POTENTIAL OWBPA DEFICIENCIES: The Older Workers Benefit Protection Act (29 U.S.C. 626(f)) requires specific procedures for waivers of age discrimination claims. Missing consideration or revocation periods may render the waiver invalid.
+
+III. STATUTORY RIGHTS NON-WAIVABLE
+
+Regardless of the agreement's enforceability, certain statutory rights CANNOT be waived:
+  - EEOC filing rights
+  - NLRB/Section 7 rights
+  - OSHA complaint rights
+  - Whistleblower protections (SOX/Dodd-Frank)
+  - Unemployment filing rights
+  - Right to report crimes
+
+IV. DEMANDS
+
+I demand that ${employer}:
+
+  1. Cease all enforcement of the Separation and Release of Claims Agreement.
+  2. Acknowledge in writing that the agreement is voidable on capacity grounds.
+  3. Preserve all evidence related to my employment, termination, and the circumstances of signing.
+  4. Provide a complete copy of all records related to my signing of the agreement, including who was present, what I was told, and the timeline of communications.
+  5. Engage in good-faith resolution of the ADA violations, capacity issues, and disability claim interference identified above.
+  6. Respond within thirty (30) days.
+
+If I do not receive a satisfactory response within 30 days, I intend to pursue all available legal remedies, including but not limited to: filing a civil action to declare the agreement void, filing EEOC charges for ADA violations, and pursuing ERISA claims for interference with disability benefits.
+
+This letter is written without prejudice and reserves all rights.
+
+Sincerely,
+
+${userName}
+${userEmail}
+${userState}
+
+---
+DRAFT — Have an employment attorney review before sending. Send via certified mail. The combination of mental health crisis + Lincoln's delays + procedural defects creates a strong voidability argument.`;
+  }
+
+  else if (type === 'dol-complaint') {
+    title = 'Department of Labor Complaint — ERISA Violations by Lincoln National';
+    body = `${today}
+
+To: U.S. Department of Labor
+Employee Benefits Security Administration (EBSA)
+Via: https://www.dol.gov/agencies/ebsa/workers-and-families/file-a-complaint
+
+RE: Complaint Against The Lincoln National Life Insurance Company
+    For ERISA Claims Procedure Violations
+    Claim #${p.claimNumber || '[Claim Number]'}
+    Plan Sponsor: ${employer}
+
+I. INTRODUCTION
+
+I am filing this complaint against The Lincoln National Life Insurance Company ("Lincoln") for serious violations of ERISA claims procedure regulations (29 CFR 2560.503-1) in connection with my Short Term Disability claim.
+
+II. SUMMARY OF VIOLATIONS
+
+  1. FAILURE TO ISSUE TIMELY APPEAL DECISION (29 CFR 2560.503-1(i)):
+     Lincoln took approximately 39 months (November 2022 to February 2026) to issue an appeal decision. ERISA permits a maximum of 120 days. This is a per se violation.
+
+  2. FAILURE TO PROVIDE FULL AND FAIR REVIEW (29 CFR 2560.503-1(h)):
+     Lincoln has not identified the medical professionals who reviewed my appeal or their qualifications in mental health.
+
+  3. FAILURE TO PROVIDE CLAIM FILE (29 CFR 2560.503-1(m)):
+     Lincoln has not provided the complete claim file, including internal guidelines and reviewer qualifications.
+
+III. IMPACT
+
+Lincoln's 39-month delay:
+  - Caused me to be terminated without disability benefits during a mental health crisis
+  - Coincided with the period I was pressured to sign a severance agreement waiving my rights
+  - Deprived me of income and medical coverage for over 3 years
+  - Caused severe emotional distress and financial hardship
+
+IV. REQUESTED ACTION
+
+  1. Investigate Lincoln's claims handling practices for systematic ERISA violations
+  2. Require Lincoln to reopen my claim and process it timely
+  3. Require Lincoln to provide the complete claim file
+  4. Assess penalties for bad faith claims handling
+  5. Refer for further investigation if warranted
+
+V. EVIDENCE
+
+I have the following documentation:
+  - Lincoln's denial letter dated November 11, 2022
+  - Lincoln's appeal decision dated February 6, 2026
+  - Lincoln's closure letter dated July 13, 2026
+  - Medical records submitted with my appeal
+  - Employment termination letter dated April 21, 2023
+  - Separation & Release of Claims Agreement documentation
+
+Sincerely,
+
+${userName}
+${userEmail}
+${userState}
+
+---
+DRAFT — File online at dol.gov/agencies/ebsa. Also consult an ERISA attorney. The DOL can investigate and penalize Lincoln for claims handling violations.`;
+  }
+
   else if (type === 'preservation') {
     title = 'Evidence Preservation Letter — Based on Document Analysis';
     body = `${today}\n\nTo: Legal Department / IT Department\n${employer}\n2851 High Meadow Circle, Auburn Hills, MI 48326\n\nVIA CERTIFIED MAIL — RETURN RECEIPT REQUESTED\n\nRe: Notice to Preserve Evidence — ${userName}\n\nDear Sir or Madam,\n\nYou are hereby notified to preserve ALL evidence, documents, and data related to my employment, work product, and the document(s) I was required to sign.\n\nThis notice is based on my intent to pursue legal claims including: intellectual property recovery, ADA violations, contract voidability (capacity challenge), and medical malpractice.\n\nEVIDENCE TO PRESERVE\n\n1. ALL source code, repositories, git logs, commit records, branch history\n2. ALL emails, Teams/Slack messages, and correspondence — including mental health references\n3. ALL HR records, including accommodation requests, performance reviews, disciplinary records\n4. ALL medical evaluation records, including capacity certification by company doctors\n5. ALL records of payment to any medical professional who evaluated me\n6. ALL project documentation, design documents, technical specifications I created\n7. ALL backup tapes, server images, archived data\n8. ALL records of NDA/release execution, including who was present and timeline\n9. ALL records related to DP World acquisition of Syncreon (2021)\n10. ALL metadata associated with the above\n\nSPOILATION WARNING\n\nDestruction, alteration, or failure to preserve will result in adverse inference instructions, monetary sanctions, and separate spoliation claims.\n\nPlease confirm receipt within 10 days and provide written confirmation that a litigation hold has been placed.\n\nSincerely,\n\n${userName}\n${userEmail}\n${userState}\n\n---\nDRAFT — Best sent by an attorney. Send via certified mail. Most important letter to send early.`;
@@ -5780,6 +5994,27 @@ async function analyzeStoredDoc(id) {
             <div class="muted" style="font-size:11px">Defend against enforcement of old agreement</div>
           </div>
         </div>
+        <div class="doc-gen-item" onclick='showAnalysisLetter("erisa-appeal-response", "${esc(doc.name)}", "${esc(doc.id)}")'>
+          <div class="doc-gen-icon">⚖️</div>
+          <div>
+            <div class="bold small">ERISA Appeal Response</div>
+            <div class="muted" style="font-size:11px">Respond to Lincoln denial citing procedural violations</div>
+          </div>
+        </div>
+        <div class="doc-gen-item" onclick='showAnalysisLetter("severance-challenge", "${esc(doc.name)}", "${esc(doc.id)}")'>
+          <div class="doc-gen-icon">📋</div>
+          <div>
+            <div class="bold small">Severance Voidability Challenge</div>
+            <div class="muted" style="font-size:11px">Challenge severance signed during mental health crisis</div>
+          </div>
+        </div>
+        <div class="doc-gen-item" onclick='showAnalysisLetter("dol-complaint", "${esc(doc.name)}", "${esc(doc.id)}")'>
+          <div class="doc-gen-icon">🏛️</div>
+          <div>
+            <div class="bold small">DOL Complaint (ERISA)</div>
+            <div class="muted" style="font-size:11px">File Dept. of Labor complaint for ERISA violations</div>
+          </div>
+        </div>
         <div class="doc-gen-item" onclick='showAnalysisLetter("preservation", "${esc(doc.name)}", "${esc(doc.id)}")'>
           <div class="doc-gen-icon">🔒</div>
           <div>
@@ -5908,7 +6143,9 @@ function renderDisability() {
 
       <div class="alert alert-warn mb-8"><span>📞</span><div class="small"><strong>Communication Barriers:</strong> Claimants report being unable to reach a live person. Different representatives ask for the same information repeatedly. <strong>This may be a deliberate strategy to run out the appeal clock.</strong> Do not let them delay you past the 180-day deadline.</div></div>
 
-      <div class="alert alert-warn mb-8"><span>⏰</span><div class="small"><strong>Decision Delays:</strong> Lincoln can take a 45-day extension under ERISA, then another 45 days. This can stretch the appeal decision to 90+ days. They use this to pressure claimants to give up. <strong>Do not give up. Document every delay.</strong></div></div>
+      <div class="alert alert-danger mb-8"><span>⏰</span><div class="small"><strong>Decision Delays:</strong> Lincoln can take a 45-day extension under ERISA, then another 45 days. This can stretch the appeal decision to 90+ days. They use this to pressure claimants to give up. <strong>Do not give up. Document every delay.</strong></div></div>
+
+      <div class="alert alert-danger mb-8" style="border-color:var(--danger)"><span>🚨</span><div class="small"><strong>EXTREME DELAY = DE NOVO REVIEW:</strong> If Lincoln takes longer than 120 days (60 + 60 extension) to decide your appeal, this is a <strong>per se ERISA procedural violation</strong> under 29 CFR 2560.503-1(i). Under 29 CFR 2560.503-1(l), you are <strong>deemed to have exhausted</strong> administrative remedies. In federal court, this means your claim gets <strong>de novo review</strong> — the judge reviews from scratch with NO deference to Lincoln's denial. <strong>A 39-month delay (as occurred in Claim #13272299) is nearly 10x the statutory maximum and is powerful evidence of bad faith.</strong></div></div>
 
       <div class="alert alert-danger mb-8"><span>🔄</span><div class="small"><strong>"Own Occupation" to "Any Occupation" Switch:</strong> Lincoln often approves claims initially under "own occupation" (can't do YOUR job), then terminates when the definition switches to "any occupation" (can't do ANY job). This is the most common denial point. <strong>They may claim you can do "sedentary work" even if your mental health prevents it.</strong></div></div>
 
@@ -10532,7 +10769,7 @@ function renderAdmin() {
         <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:6px">Metric</th><th style="text-align:left;padding:6px">Value</th></tr>
         <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Total lines of code</td><td style="padding:6px">${11844}</td></tr>
         <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Nav views</td><td style="padding:6px">26</td></tr>
-        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Document templates</td><td style="padding:6px">33+</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Document templates</td><td style="padding:6px">36+</td></tr>
         <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Analysis rules</td><td style="padding:6px">38 clauses + 10 gaps + 8 loopholes</td></tr>
         <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Case laws indexed</td><td style="padding:6px">32+</td></tr>
         <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Bad companies indexed</td><td style="padding:6px">${BAD_COMPANIES.length}</td></tr>
