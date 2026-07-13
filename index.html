@@ -935,6 +935,7 @@ textarea{resize:vertical;min-height:80px}
       <div class="nav-item" data-view="forms"><span class="nav-icon">📝</span><span>Submit & Forms</span></div>
       <div class="nav-item" data-view="release"><span class="nav-icon">🔓</span><span>Release Review</span></div>
       <div class="nav-item" data-view="disability"><span class="nav-icon">♿</span><span>Disability Claims</span></div>
+      <div class="nav-item" data-view="claimfile"><span class="nav-icon">📂</span><span>Claim File #13272299</span></div>
       <div class="nav-item" data-view="ssa"><span class="nav-icon">🏦</span><span>Social Security</span></div>
       <div class="nav-item" data-view="bankruptcy"><span class="nav-icon">💰</span><span>Bankruptcy & Credit</span></div>
       <div class="nav-item" data-view="creditscore"><span class="nav-icon">📈</span><span>Credit Score</span></div>
@@ -978,7 +979,7 @@ textarea{resize:vertical;min-height:80px}
       <div class="topbar-title" id="topbar-title">Dashboard</div>
       <div class="topbar-spacer"></div>
       <button class="topbar-btn" onclick="exportData()">⬇ Export Data</button>
-      <button class="topbar-btn" onclick="importData()">⬆ Import</button>
+      <button class="topbar-btn" onclick="importData()">⬆ Batch Import</button>
     </div>
     <div class="content" id="content"></div>
   </div>
@@ -1176,6 +1177,7 @@ const viewTitles = {
   forms: 'Submit & Legal Forms',
   release: 'Release & Severance Review',
   disability: 'Disability Claims — Lincoln Financial + ERISA',
+  claimfile: 'Claim File #13272299 — Lincoln Administrative Record',
   ssa: 'Social Security Disability — Adults & Children',
   bankruptcy: 'Bankruptcy & Unfair Credit Practices',
   creditscore: 'Credit Score — Check, Improve & Dispute',
@@ -1228,6 +1230,7 @@ function render() {
     case 'forms': c.innerHTML = renderForms(); break;
     case 'release': renderRelease().then(html => { c.innerHTML = html; setTimeout(() => setupReleaseUpload(), 50); }); break;
     case 'disability': c.innerHTML = renderDisability(); break;
+    case 'claimfile': c.innerHTML = renderClaimFile(); break;
     case 'ssa': c.innerHTML = renderSSA(); break;
     case 'bankruptcy': c.innerHTML = renderBankruptcy(); break;
     case 'creditscore': c.innerHTML = renderCreditScore(); break;
@@ -5458,61 +5461,78 @@ function buildAnalysisLetter(type, findings, gaps, loopholes, adaViolations, med
     title = 'ERISA Appeal Response — Reopening Claim After Procedural Violations';
     body = `${today}
 
-VIA CERTIFIED MAIL — RETURN RECEIPT REQUESTED
+VIA CERTIFIED MAIL -- RETURN RECEIPT REQUESTED
 
 The Lincoln National Life Insurance Company
 Disability and Life Claims Appeal
+Attn: Brook Mikulick, Claim Resolution Specialist
 PO Box 2578
 Omaha, NE 68103-2578
 
-RE: Short Term Disability (STD) Benefits — Claim #${p.claimNumber || '[Claim Number]'}
+RE: Short Term Disability (STD) Benefits -- Claim #${p.claimNumber || '13272299'}
     ${employer}
 
-Dear Claims Reviewer:
+Dear Ms. Mikulick:
 
-I am in receipt of your letter regarding the above-referenced claim. I write to dispute your assertion that I have "exhausted" my administrative remedies, and to place Lincoln National on formal notice of serious ERISA procedural violations that render your decision defective.
+I am in receipt of your letters dated July 13, 2026, regarding the above-referenced claim. I write to dispute your assertion that I have "exhausted" my administrative remedies, to place Lincoln National on formal notice of ERISA procedural violations, and to respond to your refusal to provide internal guidelines.
 
 I. TIMELINE
 
-  1.  November 2022 — My STD claim was denied.
-  2.  November 2022 — I appealed and submitted additional medical information.
-  3.  February 6, 2026 — Lincoln issued an appeal decision, approximately 39 months after my appeal.
-  4.  July 2026 — Lincoln states my claim is "closed."
+  1.  September 6, 2022 -- STD claim filed (Claim #${p.claimNumber || '13272299'}).
+  2.  November 11, 2022 -- Claim denied.
+  3.  November 10, 2022 -- I appealed (received 1 day BEFORE the denial letter).
+  4.  November 14, 2022 -- Tolling letter; appeal deadline extended to 12/13/2022.
+  5.  December 9, 2022 -- Second tolling; deadline extended to 01/07/2023.
+  6.  January 13, 2023 -- Nurse Disability Consultant (Ashley G., RN, BA, CCM) issued Nursing Memorandum.
+  7.  February 6, 2023 -- Appeal denied by Brook Mikulick, CRS.
+  8.  July 6, 2026 -- I emailed requesting another appeal and copy of claim file.
+  9.  July 13, 2026 -- Lincoln sent claim file, "exhausted" letter, and refused to provide internal guidelines.
 
 II. ERISA PROCEDURAL VIOLATIONS
 
-  A. 29 CFR 2560.503-1(i) — TIMELINESS
+  A. NURSE REVIEWED MENTAL HEALTH CLAIM -- 29 CFR 2560.503-1(h)(3)(ii)
 
-ERISA requires appeal decisions within 60 days, with a maximum 60-day extension for special circumstances — 120 days total. Lincoln took approximately 1,180 days. This is a per se procedural violation.
+The appeal was reviewed by Ashley G., RN, BA, CCM -- a nurse, not a psychiatrist or psychologist. My claim involved anxiety disorder (F41.9), mental disorder (F99), insomnia, and depression -- all psychiatric conditions.
 
-  B. 29 CFR 2560.503-1(l) — DEEMED EXHAUSTION
+ERISA requires consultation with a health care professional who has "appropriate training and experience in the field of medicine involved in the medical judgment." A nurse reviewing psychiatric conditions -- without psychiatric training -- does not meet this standard.
 
-When a plan administrator fails to strictly adhere to ERISA claims procedure requirements, the claimant is deemed to have exhausted administrative remedies and may pursue remedies under ERISA Section 502(a). Lincoln's failure to issue a timely decision means I was deemed exhausted — not because Lincoln issued a valid decision, but because Lincoln failed to follow the law.
+Furthermore, I was referred to Psychiatry by Dr. Shah on September 27, 2022. No psychiatrist ever evaluated me for Lincoln. Lincoln denied my claim based on a nurse's opinion of family medicine records -- not a psychiatric evaluation.
 
-  C. 29 CFR 2560.503-1(h) — FULL AND FAIR REVIEW
+  B. REFUSAL TO PROVIDE INTERNAL GUIDELINES -- 29 CFR 2560.503-1(m)(8)(iii)
 
-Lincoln has not identified the names or qualifications of the medical professionals who reviewed my appeal, which involved mental health conditions.
+Your July 13, 2026 letter states: "we do not agree with your interpretation of the scope of Lincoln's disclosure obligations under ERISA and we decline your request for this type of documentation."
+
+Under 29 CFR 2560.503-1(m)(8)(iii), the plan administrator MUST provide, on request, "internal rules, guidelines, protocols, standards or other similar criteria" relied upon in the denial. This refusal is a separate ERISA procedural violation.
+
+  C. APPEAL PROCESSED BEFORE DENIAL ISSUED
+
+My appeal was received November 10, 2022 -- one day BEFORE the denial letter dated November 11, 2022. This suggests Lincoln knew I intended to appeal before the denial was even issued, calling into question whether the denial was pre-determined.
 
 III. LEGAL EFFECT
 
 Under controlling federal law, Lincoln's procedural violations mean:
-  1. Any lawsuit will receive de novo review — the court reviews from scratch, without deference to Lincoln's denial.
-  2. I was deemed to have exhausted administrative remedies approximately March 2023 (120 days after my November 2022 appeal).
-  3. The 39-month delay is evidence of bad faith.
+
+  1. Any lawsuit will receive DE NOVO REVIEW -- the court reviews from scratch, without deference to Lincoln's denial. See Metropolitan Life Insurance Co. v. Glomm, 244 F.3d 1013 (8th Cir. 2001).
+
+  2. The nurse's review of psychiatric conditions without psychiatric training supports a finding that the appeal review was not "full and fair" as required by ERISA.
+
+  3. The refusal to provide internal guidelines is a separate violation that supports de novo review and potential equitable relief under ERISA Section 502(a)(3).
 
 IV. DEMAND
 
-  1. Reopen my claim immediately and process it in accordance with ERISA.
-  2. Provide a complete copy of my claim file, including names and qualifications of all reviewers.
-  3. Provide all internal guidelines relied upon in the denial.
-  4. Provide written acknowledgment of the procedural violations.
-  5. Explain in writing why the appeal decision took 39 months.
-  6. Preserve all evidence — this is a litigation hold notice.
+I demand that Lincoln National:
+
+  1. Reopen Claim #${p.claimNumber || '13272299'} and process it with a qualified psychiatric professional.
+  2. Provide ALL internal rules, guidelines, protocols, or criteria relied upon in the denial (29 CFR 2560.503-1(m)(8)(iii)).
+  3. Provide a complete copy of my claim file, including the names and qualifications of ALL reviewers.
+  4. Provide written acknowledgment of the procedural violations described above.
+  5. Explain why a nurse -- not a psychiatrist -- reviewed a mental health claim.
+  6. Preserve all evidence related to Claim #${p.claimNumber || '13272299'} -- this is a litigation hold notice.
   7. Respond within thirty (30) days.
 
 V. RESERVATION OF RIGHTS
 
-This letter is written without prejudice and reserves all rights under ERISA, ADA, and all applicable federal and state laws.
+This letter is written without prejudice and reserves all rights under ERISA, ADA, and all applicable federal and state laws. I am aware of the contractual limitations period expiring December 12, 2026, and intend to file a civil action under 29 U.S.C. 1132(a)(1)(B) before that date if this matter is not resolved.
 
 Sincerely,
 
@@ -5521,7 +5541,7 @@ ${userEmail}
 ${userState}
 
 ---
-DRAFT — Have an ERISA attorney review before sending. The extended delay is your strongest argument for de novo review. Send via certified mail.`;
+DRAFT -- Have an ERISA attorney review before sending. The nurse-not-psychiatrist argument is strong for de novo review. The December 12, 2026 deadline is real. Send via certified mail.`;
   }
 
   else if (type === 'severance-challenge') {
@@ -6117,6 +6137,143 @@ async function removeStoredDoc(id) {
   await deleteReleaseDoc(id);
   toast('Document deleted from local storage');
   setTimeout(() => { navigate('release'); setupReleaseUpload(); }, 500);
+}
+
+// ── CLAIM FILE #13272299 ──
+function renderClaimFile() {
+  return `
+    <div class="alert alert-danger">
+      <span>⚠️</span>
+      <div><strong>CRITICAL: Contractual limitations period expires December 12, 2026.</strong> Lincoln's Feb 6, 2023 letter states a lawsuit must be brought within 3 years after proof of claim was required. <strong>You have approximately 5 months to file a federal ERISA lawsuit.</strong> Consult an ERISA attorney immediately.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📂 Claim #13272299 — Lincoln National Life Insurance Company</div>
+      <div class="card-sub">171-page administrative claim file • Received from Lincoln July 13, 2026</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px;width:30%">Field</th><th style="text-align:left;padding:8px">Value</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Claim Number</strong></td><td style="padding:8px">13272299</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Claimant</strong></td><td style="padding:8px">Paul R. Adcock (DOB: 04/11/1985)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Policyholder</strong></td><td style="padding:8px">DP World CL Holding Americas (formerly Syncreon)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Product</strong></td><td style="padding:8px">STD (Short Term Disability) • ERISA Plan</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Funding</strong></td><td style="padding:8px">CON (Contributory)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Claim Status</strong></td><td style="padding:8px;color:var(--danger)"><strong>Denied</strong> — "Not TD Own Occ" (Not Totally Disabled)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Date of Disability</strong></td><td style="padding:8px">September 6, 2022</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Last Work Date</strong></td><td style="padding:8px">September 5, 2022</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Claim Filed</strong></td><td style="padding:8px">September 6, 2022</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Benefits Begin Date</strong></td><td style="padding:8px">September 13, 2022 (after 7-day elimination period)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Max Benefit Date</strong></td><td style="padding:8px">March 6, 2023</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Diagnosis 1</strong></td><td style="padding:8px">F41.9 — Anxiety disorder, unspecified</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Diagnosis 2</strong></td><td style="padding:8px">F99 — Mental disorder, not otherwise specified</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Physical Demands</strong></td><td style="padding:8px">Sedentary</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Claim Last Updated</strong></td><td style="padding:8px">02/06/2023</td></tr>
+        <tr><td style="padding:8px"><strong>Contractual SOL Expires</strong></td><td style="padding:8px;color:var(--danger)"><strong>December 12, 2026</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 Key Timeline</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">Date</th><th style="text-align:left;padding:8px">Event</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">09/06/2022</td><td style="padding:8px">Claim filed — work stress induced anxiety, physical and mental distress, depression</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">09/20/2022</td><td style="padding:8px">Initial EE interview — Paul reports work stress causing anxiety, depression, needing anti-anxiety meds to fly for job</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">09/28/2022</td><td style="padding:8px">Medical records requested from Dr. Schermer — CIOX Health rejected (missing auth)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">10/11/2022</td><td style="padding:8px">Paul calls — wants to know why claim not approved. Told no medical records received.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">10/24/2022</td><td style="padding:8px">ER confirms Paul returned to work (RTW) on 10/24/22</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">10/25/2022</td><td style="padding:8px">Nurse review by Karen Hughes — 03D queue</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">10/28/2022</td><td style="padding:8px">Nurse review by LaTonya Cureton — file review</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/02/2022</td><td style="padding:8px">Paul calls — told medical on file insufficient. He gets escalated.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/03/2022</td><td style="padding:8px">Nurse Tilley recommends DENY — "not TD" (not totally disabled)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/03/2022</td><td style="padding:8px">Manager Julianne Donald agrees with denial</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/11/2022</td><td style="padding:8px;color:var(--danger)"><strong>Claim DENIED</strong> — referred to Appeals Review Unit (ARU)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/10/2022</td><td style="padding:8px">Paul emails appeal (1 day BEFORE denial letter — Lincoln processed appeal before denial)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/11/2022</td><td style="padding:8px">Paul told of denial by phone — upset, says "how awful this company was"</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">11/14/2022</td><td style="padding:8px">Tolling letter sent — appeal deadline extended to 12/13/2022</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">12/06/2022</td><td style="padding:8px">Paul calls — asks to reopen claim, AP filled out paperwork incorrectly</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">12/09/2022</td><td style="padding:8px">Paul calls — providers not cooperating fast enough. Deadline extended to 01/07/2023.</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">12/13/2022</td><td style="padding:8px">Medical records received from Dr. Schermer (Oct 2021 - Oct 2022) and Dr. Shah</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">12/20/2022</td><td style="padding:8px">HCP form from Dr. Shah dated 09/27/2022 received</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">12/30/2022</td><td style="padding:8px">Referred to Managed Care — Nurse review for mental health claim</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">01/13/2023</td><td style="padding:8px">Nurse Disability Consultant (Ashley G., RN, BA, CCM) issues Appeals Nursing Memorandum</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">01/13/2023</td><td style="padding:8px">Paul sent copy of clinical review — 21 days to respond by 02/02/2023</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;color:var(--danger)"><strong>02/06/2023</strong></td><td style="padding:8px;color:var(--danger)"><strong>APPEAL DENIED — denial upheld by Brook Mikulick, CRS</strong></td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">07/06/2026</td><td style="padding:8px">Paul emails Lincoln requesting another appeal + copy of claim file</td></tr>
+        <tr><td style="padding:8px">07/13/2026</td><td style="padding:8px">Lincoln sends claim file (171 pages) + "exhausted" letter + refuses internal guidelines</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚨 Critical Findings from Claim File</div>
+
+      <div class="alert alert-danger mb-8"><span>🩺</span><div class="small"><strong>NURSE REVIEWED MENTAL HEALTH CLAIM — NOT A DOCTOR:</strong> The appeal was reviewed by <strong>Ashley G., RN, BA, CCM</strong> — a nurse, not a psychiatrist. Under ERISA 29 CFR 2560.503-1(h)(3)(ii), the plan administrator must consult a health care professional with "appropriate training and experience in the field of medicine involved in the medical judgment." A nurse reviewing anxiety, depression, and insomnia — without psychiatric training — may not meet this standard. <strong>This is grounds for arguing lack of full and fair review.</strong></div></div>
+
+      <div class="alert alert-danger mb-8"><span>💊</span><div class="small"><strong>MEDICATIONS DISMISSED:</strong> Paul was prescribed <strong>Ambien</strong> (insomnia), <strong>Buspar</strong> (anxiety), and <strong>Modafinil</strong> (shift work sleep disorder). The nurse acknowledged these prescriptions but concluded there was "no evidence of mental nervous condition severity or global functional impairment." A nurse is not qualified to assess psychiatric medication efficacy.</div></div>
+
+      <div class="alert alert-danger mb-8"><span>🧠</span><div class="small"><strong>PSYCHIATRY REFERRAL IGNORED:</strong> Dr. Shah referred Paul to Psychiatry on 9/27/2022. Paul initially declined, then became agreeable. The nurse used his initial refusal as evidence against him, while ignoring that he later accepted the referral. <strong>No psychiatrist ever evaluated Paul for Lincoln.</strong> The denial is based on a nurse's opinion of mental health records — not a psychiatric evaluation.</div></div>
+
+      <div class="alert alert-warn mb-8"><span>📝</span><div class="small"><strong>DR. SHAH NOTE TWISTED:</strong> The nurse notes Paul was "insistent that Dr. Shah write that he was 100% mentally stable" but Dr. Shah "declined." This is used as evidence Paul was not disabled. In reality, Paul may have been seeking documentation for work — and Dr. Shah's refusal to certify him "100% stable" is evidence that he was NOT stable.</div></div>
+
+      <div class="alert alert-danger mb-8"><span>⚖️</span><div class="small"><strong>CONTRACTUAL SOL: DECEMBER 12, 2026:</strong> Lincoln's appeal letter states: "Your employer's policy has a contractual limitations period of three years... The date on which the contractual limitations period expires for this claim is December 12, 2026." <strong>You have approximately 5 months to file a federal ERISA lawsuit.</strong> Do not delay.</div></div>
+
+      <div class="alert alert-warn mb-8"><span>📧</span><div class="small"><strong>LINCOLN REFUSES TO PROVIDE INTERNAL GUIDELINES:</strong> In the July 13, 2026 letter, Lincoln states: "we do not agree with your interpretation of the scope of Lincoln's disclosure obligations under ERISA and we decline your request for this type of documentation." Under 29 CFR 2560.503-1(m)(8)(iii), Lincoln MUST provide internal rules, guidelines, or protocols relied upon in the denial. <strong>This refusal is a separate ERISA violation.</strong></div></div>
+
+      <div class="alert alert-warn"><span>📅</span><div class="small"><strong>APPEAL FILED BEFORE DENIAL:</strong> Paul's appeal was received 11/10/2022 — one day BEFORE the denial letter dated 11/11/2022. This suggests Lincoln knew Paul intended to appeal before they even issued the denial, and may have pre-decided the outcome.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Key Individuals</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">Name</th><th style="text-align:left;padding:8px">Role</th><th style="text-align:left;padding:8px">Actions</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Brook Mikulick</strong></td><td style="padding:8px">Claim Resolution Specialist, Lincoln</td><td style="padding:8px">Denied appeal 02/06/2023; sent "exhausted" letter 07/13/2026; refused internal guidelines</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Ashley G., RN, BA, CCM</strong></td><td style="padding:8px">Appeals Nurse Disability Consultant</td><td style="padding:8px">Wrote Nursing Memorandum 01/13/2023 — reviewed mental health claim without psychiatric training</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Karen Hughes, RN</strong></td><td style="padding:8px">Nurse</td><td style="padding:8px">10/25/2022 file review — 03D queue</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>LaTonya Cureton, RN</strong></td><td style="padding:8px">Nurse</td><td style="padding:8px">10/28/2022 file review</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Ashley Tilley, RN</strong></td><td style="padding:8px">Nurse</td><td style="padding:8px">11/03/2022 — recommended denial "not TD"</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Julianne Donald</strong></td><td style="padding:8px">Manager</td><td style="padding:8px">11/03/2022 — agreed with denial, referred to ARU</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Isabella Lombardi</strong></td><td style="padding:8px">Disability Case Manager, Lincoln</td><td style="padding:8px">Initial claim handling, medical records requests</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Dr. Nishith Shah</strong></td><td style="padding:8px">Family Medicine</td><td style="padding:8px">Treating provider — 9/2/22 and 9/27/22 visits; prescribed Ambien, Buspar; psych referral</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Dr. Ian Schermer</strong></td><td style="padding:8px">Family Medicine (MercyHealth)</td><td style="padding:8px">Treating provider — 10/20/22 visit; RTW form 10/24/22 no restrictions</td></tr>
+        <tr><td style="padding:8px"><strong>Tanner Pike</strong></td><td style="padding:8px">HR Generalist, Syncreon</td><td style="padding:8px">Confirmed Paul's RTW date to Lincoln</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💊 Medications Prescribed</div>
+      <table style="width:100%;border-collapse:collapse" class="small">
+        <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">Medication</th><th style="text-align:left;padding:8px">Purpose</th></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Ambien</strong></td><td style="padding:8px">Insomnia / sleep aid (PRN)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px"><strong>Buspar (Buspirone)</strong></td><td style="padding:8px">Anxiety</td></tr>
+        <tr><td style="padding:8px"><strong>Modafinil</strong></td><td style="padding:8px">Shift work sleep disorder</td></tr>
+      </table>
+      <div class="alert alert-warn mt-8"><span>⚠️</span><div class="small">Lincoln's nurse acknowledged these prescriptions but concluded "no evidence of mental nervous condition severity." A nurse is not qualified to override a prescribing physician's clinical judgment.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 Your Legal Arguments</div>
+      <div class="alert alert-danger mb-8"><span>⚖️</span><div class="small"><strong>1. NURSE NOT QUALIFIED FOR MENTAL HEALTH REVIEW:</strong> Under 29 CFR 2560.503-1(h)(3)(ii), the reviewer must have "appropriate training and experience in the field of medicine involved." A nurse (RN) reviewed a claim for anxiety, depression, and insomnia — psychiatric conditions. No psychiatrist or psychologist was consulted. <strong>Argument: The appeal review was not "full and fair" as required by ERISA.</strong></div></div>
+      <div class="alert alert-danger mb-8"><span>📋</span><div class="small"><strong>2. FAILURE TO PROVIDE INTERNAL GUIDELINES:</strong> Lincoln refused to provide internal rules, guidelines, or protocols on 07/13/2026. Under 29 CFR 2560.503-1(m)(8)(iii), Lincoln must provide these on request. <strong>Argument: Separate ERISA procedural violation, supports de novo review.</strong></div></div>
+      <div class="alert alert-warn mb-8"><span>🧠</span><div class="small"><strong>3. NO PSYCHIATRIC EVALUATION:</strong> Paul was referred to Psychiatry on 9/27/2022. He was never evaluated by a psychiatrist. Lincoln denied based on nurse review of family medicine records. <strong>Argument: Lincoln failed to obtain appropriate medical evidence for a mental health claim.</strong></div></div>
+      <div class="alert alert-warn mb-8"><span>📅</span><div class="small"><strong>4. CONTRACTUAL DEADLINE:</strong> Lincoln states the contractual limitations period expires December 12, 2026. <strong>You must file a federal ERISA lawsuit before this date or lose your right to sue.</strong></div></div>
+      <div class="alert alert-warn"><span>💼</span><div class="small"><strong>5. DP WORLD AS PROPER DEFENDANT:</strong> Syncreon was acquired by DP World in 2021 for \$1.2B. The policy lists "DP World CL Holding Americas" as the employer. <strong>DP World is the proper defendant and has deep pockets.</strong></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ Immediate Action Items</div>
+      <ol class="small" style="padding-left:20px;line-height:2">
+        <li><strong>CONSULT AN ERISA ATTORNEY IMMEDIATELY</strong> — The December 12, 2026 deadline is approximately 5 months away. Many ERISA attorneys work on contingency.</li>
+        <li><strong>File a federal ERISA lawsuit</strong> under 29 U.S.C. 1132(a)(1)(B) for wrongfully denied benefits — before December 12, 2026.</li>
+        <li><strong>File DOL complaint</strong> with EBSA for ERISA procedural violations (nurse reviewer, refusal to provide guidelines).</li>
+        <li><strong>Send ERISA Appeal Response letter</strong> (available in Release Review) citing all procedural violations.</li>
+        <li><strong>Request complete claim file</strong> — Lincoln says it will be sent "under separate cover." Follow up if not received.</li>
+        <li><strong>Document everything</strong> — keep copies of all correspondence, certified mail receipts, and phone logs.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚠️ Disclaimer</div>
+      <div class="alert alert-danger"><span>🚫</span><div class="small">This is <strong>not legal advice</strong>. LegalPath is a self-advocacy tool. The information on this page is drawn from the 171-page Lincoln claim file and is presented for organizational purposes. Only a licensed ERISA attorney can advise you on your legal rights and the strength of your case. <strong>The December 12, 2026 deadline is real and enforceable.</strong> Do not delay.</div></div>
+    </div>
+  `;
 }
 
 // ── DISABILITY CLAIMS VIEW ──
@@ -13370,20 +13527,54 @@ function exportData() {
 function importData() {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = '.json';
-  input.onchange = e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
+  input.multiple = true;
+  input.accept = '.json,.txt,.pdf,.doc,.docx,.rtf,.csv,.html,.htm,.md,.xml,.png,.jpg,.jpeg,.gif,.webp,.bmp';
+  input.onchange = async e => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    
+    let jsonImported = false;
+    let docsAdded = 0;
+    let errors = [];
+    
+    for (const file of files) {
+      const lower = file.name.toLowerCase();
+      
+      // JSON = state import
+      if (lower.endsWith('.json')) {
+        try {
+          const text = await file.text();
+          state = { ...state, ...JSON.parse(text) };
+          save();
+          jsonImported = true;
+        } catch(err) { errors.push(file.name + ': invalid JSON'); }
+        continue;
+      }
+      
+      // Everything else = document for analysis
       try {
-        state = { ...state, ...JSON.parse(ev.target.result) };
-        save();
-        render();
-        toast('Data imported');
-      } catch(err) { toast('Import failed: invalid file', 'warn'); }
-    };
-    reader.readAsText(file);
+        const text = await extractTextFromFile(file);
+        const id = 'doc-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+        await storeReleaseDoc(id, file.name, file.type || 'unknown', file.size, text);
+        docsAdded++;
+      } catch(err) { errors.push(file.name + ': ' + (err.message || 'extract failed')); }
+    }
+    
+    // Report results
+    let msg = [];
+    if (jsonImported) msg.push('Case data imported');
+    if (docsAdded > 0) msg.push(docsAdded + ' document' + (docsAdded > 1 ? 's' : '') + ' added to Release Review');
+    if (errors.length) msg.push(errors.length + ' error' + (errors.length > 1 ? 's' : '') + ': ' + errors.join('; '));
+    toast(msg.join(' • ') || 'No files processed', errors.length ? 'warn' : 'success');
+    
+    if (jsonImported) render();
+    if (docsAdded > 0) {
+      if (state.currentView === 'release') {
+        navigate('release'); setupReleaseUpload();
+      } else {
+        navigate('release'); setupReleaseUpload();
+      }
+    }
   };
   input.click();
 }
