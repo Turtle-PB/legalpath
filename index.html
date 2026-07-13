@@ -1237,7 +1237,7 @@ function render() {
     case 'consumer': c.innerHTML = renderConsumer(); break;
     case 'immigrant': c.innerHTML = renderImmigrant(); break;
     case 'medical': c.innerHTML = renderMedical(); break;
-    case 'import': c.innerHTML = renderImport(); setTimeout(() => setupImportUpload(), 50); break;
+    case 'import': renderImport().then(html => { c.innerHTML = html; setTimeout(() => setupImportUpload(), 50); }); break;
     case 'wizard': c.innerHTML = renderWizard(); break;
     case 'admin': c.innerHTML = renderAdmin(); break;
     case 'tools': c.innerHTML = renderTools(); break;
@@ -13524,7 +13524,7 @@ function exportData() {
   toast('Data exported');
 }
 
-function importData() {
+async function importData() {
   const input = document.createElement('input');
   input.type = 'file';
   input.multiple = true;
