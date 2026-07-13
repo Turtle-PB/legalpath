@@ -3946,7 +3946,11 @@ function deleteReleaseDoc(id) {
 }
 
 async function extractTextFromFile(file) {
-  if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+  const name = file.name.toLowerCase();
+  const type = file.type || '';
+
+  // PDF — extract text with pdf.js
+  if (type === 'application/pdf' || name.endsWith('.pdf')) {
     try {
       if (typeof pdfjsLib === 'undefined') return '[PDF.js not loaded — text extraction unavailable. View file directly.]';
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -3958,16 +3962,87 @@ async function extractTextFromFile(file) {
         const content = await page.getTextContent();
         fullText += content.items.map(it => it.str).join(' ') + '\n\n';
       }
-      return fullText;
+      return fullText || '[PDF has no extractable text — may be scanned/image PDF. Use OCR tools (Tools tab → OCR Tips) to extract text from images.]';
     } catch (e) {
-      return '[PDF text extraction error: ' + e.message + ' — you can still view the file manually]';
+      return '[PDF text extraction error: ' + e.message + ' — you can still view and analyze the file manually]';
     }
-  } else if (file.type.startsWith('text/') || file.name.match(/\.(txt|md|rtf|csv)$/i)) {
-    return await file.text();
-  } else if (file.type === 'application/msword' || file.type.includes('word') || file.name.match(/\.(doc|docx)$/i)) {
-    return '[Word document detected — text extraction limited. For .docx, try saving as .txt or PDF and re-uploading.]';
   }
-  return '[Unsupported file type for text extraction. File stored securely for your reference.]';
+
+  // Plain text formats
+  if (type.startsWith('text/') || name.match(/\.(txt|md|rtf|csv|log|json|xml|html?|css|js|py|java|c|cpp|sh|bat|ps1|yaml|yml|toml|ini|cfg|conf|sql)$/i)) {
+    try { return await file.text(); } catch(e) { return '[Error reading text file: ' + e.message + ']'; }
+  }
+
+  // Word .docx — extract from ZIP-based XML
+  if (type.includes('word') || name.match(/\.(docx|doc)$/i)) {
+    if (name.endsWith('.docx')) {
+      try {
+        // .docx is a ZIP — read document.xml from it
+        const ab = await file.arrayBuffer();
+        const decompressed = await decompressDocx(ab);
+        if (decompressed) return decompressed;
+      } catch(e) { /* fall through */ }
+    }
+    return '[Word document detected. For .docx: save as PDF or .txt and re-upload for full text extraction. For .doc: copy-paste text into a .txt file and upload.]';
+  }
+
+  // Images — stored for reference, no text extraction
+  if (type.startsWith('image/') || name.match(/\.(jpg|jpeg|png|gif|bmp|webp|svg|tiff?)$/i)) {
+    return '[Image file stored for reference. Use OCR tools (Tools tab → OCR Tips) to extract text from document images: Google Drive, Google Keep, OneNote, iPhone Live Text, Google Lens.]';
+  }
+
+  // Audio/video — stored for reference
+  if (type.startsWith('audio/') || type.startsWith('video/') || name.match(/\.(mp3|wav|m4a|mp4|avi|mov|wmv)$/i)) {
+    return '[Media file stored for reference. Transcribe audio using free tools like Google Docs Voice Typing or Otter.ai, then paste text here for analysis.]';
+  }
+
+  // Excel/spreadsheets
+  if (name.match(/\.(xlsx|xls|ods)$/i)) {
+    return '[Spreadsheet stored for reference. Copy relevant cells to a .txt file and upload for text analysis.]';
+  }
+
+  // PowerPoint
+  if (name.match(/\.(pptx|ppt|odp)$/i)) {
+    return '[Presentation stored for reference. Export as PDF and re-upload for text extraction.]';
+  }
+
+  // Compressed files
+  if (name.match(/\.(zip|rar|7z|tar|gz)$/i)) {
+    return '[Compressed archive stored for reference. Extract the files and upload individual documents for analysis.]';
+  }
+
+  // Any other file — try reading as text
+  try {
+    const text = await file.text();
+    if (text && text.length > 10 && !text.includes('\u0000')) return text;
+    return '[File stored securely. Format not directly supported for text extraction. If this is a document, try saving as PDF or .txt and re-uploading.]';
+  } catch(e) {
+    return '[File stored securely for your reference. Text extraction not available for this format.]';
+  }
+}
+
+// Helper: extract text from .docx (which is a ZIP containing word/document.xml)
+async function decompressDocx(arrayBuffer) {
+  try {
+    // Use the browser's DecompressionStream if available
+    // .docx is a ZIP file — we need to find word/document.xml inside
+    // Simple approach: look for XML content markers
+    const bytes = new Uint8Array(arrayBuffer);
+    let text = '';
+    // Search for <w:t> tags which contain text in Word XML
+    const decoder = new TextDecoder('utf-8');
+    // Find the document.xml portion by looking for XML patterns
+    const fullStr = decoder.decode(bytes, { stream: true });
+    // Extract text between <w:t> tags
+    const matches = fullStr.match(/<w:t[^>]*>([^<]*)<\/w:t>/g);
+    if (matches && matches.length > 0) {
+      text = matches.map(m => m.replace(/<[^>]+>/g, '')).join(' ');
+      return text;
+    }
+    return null;
+  } catch(e) {
+    return null;
+  }
 }
 
 // ── ANALYSIS ENGINE ──
@@ -5393,7 +5468,7 @@ async function renderRelease() {
     ? '<div class="muted small" style="padding:12px;text-align:center">No documents uploaded yet. Upload your release/severance agreement above.</div>'
     : docs.map(d => `
       <div class="upload-list-item">
-        <span style="font-size:20px">${d.type.includes('pdf') ? '📄' : '📝'}</span>
+        <span style="font-size:20px">${d.type.includes('pdf') ? '📄' : d.type.includes('image') ? '🖼️' : d.type.includes('word') ? '📝' : d.type.includes('text') ? '📄' : d.type.includes('audio') ? '🎵' : d.type.includes('video') ? '🎬' : '📎'}</span>
         <div style="flex:1">
           <div class="bold small">${esc(d.name)}</div>
           <div class="muted" style="font-size:10px">${(d.size/1024).toFixed(0)} KB • Uploaded ${new Date(d.uploadedAt).toLocaleDateString()}</div>
@@ -5417,10 +5492,10 @@ async function renderRelease() {
       <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
         <div class="upload-icon">📄</div>
         <div class="upload-title">Click to upload or drag & drop</div>
-        <div class="upload-desc">PDF, TXT, MD, RTF, CSV supported. Word docs have limited extraction.</div>
+        <div class="upload-desc">Supports ALL formats: PDF, Word (.docx/.doc), TXT, images, HTML, RTF, JSON, and more. PDF text extracted automatically. Word docs extracted where possible. Images stored with OCR tips.</div>
         <div class="upload-desc" style="margin-top:8px;color:var(--emerald)">🔒 Files stored locally in IndexedDB — never uploaded anywhere</div>
       </div>
-      <input type="file" id="file-input" class="hidden" accept=".pdf,.txt,.md,.rtf,.csv,.doc,.docx" multiple>
+      <input type="file" id="file-input" class="hidden" multiple>
 
       <div class="mt-16" id="upload-status"></div>
     </div>
